@@ -40,7 +40,7 @@ public class UnitsBrowse extends Screen {
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
-        CreateAction<Units> createAction = (CreateAction<Units>) actions.create(CreateAction.ID);
+        CreateAction createAction = (CreateAction) actions.create(CreateAction.ID);
         createAction.withHandler(actionPerformedEvent -> {
             if (unitsDataGrid.isEditorActive()) {
                 notifications.create()
@@ -56,7 +56,7 @@ public class UnitsBrowse extends Screen {
         });
         unitsDataGrid.addAction(createAction);
 
-        EditAction<Units> editAction = (EditAction<Units>) actions.create(EditAction.ID);
+        EditAction editAction = (EditAction) actions.create(EditAction.ID);
         editAction.withHandler(actionPerformedEvent -> {
             Units selected = unitsDataGrid.getSingleSelected();
             if (selected != null) {
