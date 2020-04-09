@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.sweethill.orderstore.web.screens.goods">
+    <data>
+        <instance id="goodsDc"
+                  class="com.sweethill.orderstore.entity.Goods"
+                  view="goods-view">
+            <loader/>
+            <collection id="name_optionsDC" property="name_options"/>
+        </instance>
+    </data>
+    <dialogMode height="800"
+                width="800" forceDialog="true"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="goodsDc">
+            <column width="600px">
+                <textField id="nameField" property="name"/>
+                <pickerField id="groupField" property="group">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <textField id="codeField" property="code"/>
+                <pickerField id="unitField" property="unit">
+                    <actions>
+                        <action id="lookup" type="picker_lookup">
+                            <properties>
+                                <property name="screenId" value="orderstore_GoodsGroups.search"/>
+                            </properties>
+                        </action>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+            </column>
+        </form>
+        <groupBox id="name_optionsBox" width="100%" caption="msg://GoodsEdit_groupBoxCaption">
+            <table id="name_optionsTable" dataContainer="name_optionsDC" height="400px" width="100%">
+                <actions>
+                    <action id="create" type="create"/>
+                    <action id="edit" type="edit"/>
+                    <action id="remove" type="remove"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="name_optionsTable.create"/>
+                    <button action="name_optionsTable.edit"/>
+                    <button action="name_optionsTable.remove"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

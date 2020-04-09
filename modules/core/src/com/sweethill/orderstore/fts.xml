@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fts-config xmlns="http://schemas.haulmont.com/cuba/fts.xsd">
+    <entities>
+        <entity class="com.sweethill.orderstore.entity.GoodNameOption">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.Units">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.Owner">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.GoodsGroups">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.Goods">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.ExtUser">
+            <include re=".*"/>
+        </entity>
+    </entities>
+</fts-config>

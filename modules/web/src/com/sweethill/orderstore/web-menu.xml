@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
+    <menu id="Dictionaries" insertBefore="reports">
+        <menu id="ApplicationDictionaries">
+            <item screen="orderstore_Goods.browse"/>
+            <item screen="orderstore_GoodsGroups.browse"/>
+        </menu>
+        <menu id="SysDictionaries">
+            <item screen="orderstore_Owner.browse"/>
+        </menu>
+        <item screen="orderstore_UnitsBrowse"/>
+    </menu>
+    <menu id="application-orderstore" insertBefore="administration"/>
+</menu-config>

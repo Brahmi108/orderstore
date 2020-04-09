@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        xmlns:ext="http://schemas.haulmont.com/cuba/window-ext.xsd"
+        class="com.sweethill.orderstore.web.screens.ExtUserEditor"
+        extends="com/haulmont/cuba/gui/app/security/user/edit/user-edit.xml"
+        messagesPack="com.sweethill.orderstore.web.screens">
+    <dsContext>
+        <datasource id="userDs" class="com.sweethill.orderstore.entity.ExtUser"/>
+    </dsContext>
+    <layout>
+        <groupBox id="propertiesBox">
+            <label value="msg://userTableChangeOwnerBtnCaption"/>
+            <pickerField id="ownerField" property="owner" datasource="userDs">
+                <actions>
+                    <action id="lookup" type="picker_lookup"/>
+                    <action id="clear" type="picker_clear"/>
+                </actions>
+            </pickerField>
+        </groupBox>
+    </layout>
+</window>

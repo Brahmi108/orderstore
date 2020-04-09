@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://caption"
+        messagesPack="com.sweethill.orderstore.web.screens.units">
+    <data>
+        <collection id="unitsDc"
+                    class="com.sweethill.orderstore.entity.Units"
+                    view="_local">
+            <loader id="unitsDl">
+                <query>
+                    <![CDATA[select e from orderstore_Units e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout expand="unitsDataGrid"
+            spacing="true">
+        <dataGrid id="unitsDataGrid"
+                  editorEnabled="true"
+                  dataContainer="unitsDc"
+                  width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="shortName"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="unitsDataGrid.create"/>
+                <button id="editBtn"
+                        action="unitsDataGrid.edit"/>
+            </buttonsPanel>
+        </dataGrid>
+    </layout></window>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        xmlns:ext="http://schemas.haulmont.com/cuba/window-ext.xsd"
+        class="com.sweethill.orderstore.web.screens.ExtUserBrowser"
+        extends="com/haulmont/cuba/gui/app/security/user/browse/user-browse.xml"
+        messagesPack="com.sweethill.orderstore.web.screens">
+    <dsContext>
+        <datasource id="userDs" class="com.sweethill.orderstore.entity.ExtUser" view="user.browse"/>
+    </dsContext>
+
+    <layout>
+        <groupTable id="usersTable">
+            <columns>
+                <column id="owner.name"/>
+            </columns>
+            <rows/>
+        </groupTable>
+    </layout>
+</window>

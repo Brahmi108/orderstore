@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="goodsGroupsesTable"
+        messagesPack="com.sweethill.orderstore.web.screens.goodsgroups">
+    <data readOnly="true">
+        <collection id="goodsGroupsesDc"
+                    class="com.sweethill.orderstore.entity.GoodsGroups"
+                    view="_local">
+            <loader id="goodsGroupsesDl">
+                <query>
+                    <![CDATA[select e from orderstore_GoodsGroups e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="goodsGroupsesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="goodsGroupsesTable"
+                dataLoader="goodsGroupsesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="goodsGroupsesTable"
+                    width="100%"
+                    dataContainer="goodsGroupsesDc">
+            <columns>
+                <column id="name"/>
+                <column id="comment"/>
+            </columns>
+            <rowsCount/>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

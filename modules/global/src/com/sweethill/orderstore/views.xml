@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
+
+    <view class="com.sweethill.orderstore.entity.ExtUser" name="user.browse" extends="user.browse">
+        <property name="owner">
+            <property name="name"/>
+        </property>
+    </view>
+    <view class="com.sweethill.orderstore.entity.ExtUser" name="user.edit" extends="user.edit">
+        <property name="owner">
+            <property name="name"/>
+        </property>
+    </view>
+    <view entity="orderstore_Goods" name="goods-view" extends="_local">
+        <property name="unit" view="_minimal">
+            <property name="shortName"/>
+        </property>
+        <property name="group" view="_minimal"/>
+        <property name="name_options" view="_minimal"/>
+        <property name="owner" view="_minimal"/>
+    </view>
+</views>
