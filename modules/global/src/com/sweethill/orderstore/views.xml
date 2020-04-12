@@ -19,4 +19,7 @@
         <property name="name_options" view="_minimal"/>
         <property name="owner" view="_minimal"/>
     </view>
+    <view entity="orderstore_CostType" name="costType-view" extends="_local">
+        <property name="owner" view="_local"/>
+    </view>
 </views>

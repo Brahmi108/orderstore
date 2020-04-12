@@ -8,5 +8,6 @@
         <class>com.sweethill.orderstore.entity.GoodNameOption</class>
         <class>com.sweethill.orderstore.entity.Goods</class>
         <class>com.sweethill.orderstore.entity.ExtUser</class>
+        <class>com.sweethill.orderstore.entity.CostType</class>
     </persistence-unit>
 </persistence>

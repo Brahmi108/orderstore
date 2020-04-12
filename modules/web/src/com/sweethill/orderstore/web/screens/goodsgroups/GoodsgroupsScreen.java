@@ -1,4 +1,4 @@
-package com.sweethill.orderstore.web.screens.units;
+package com.sweethill.orderstore.web.screens.goodsgroups;
 
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
@@ -10,84 +10,83 @@ import com.haulmont.cuba.gui.components.Actions;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.screen.*;
+import com.sweethill.orderstore.entity.GoodsGroups;
 import com.sweethill.orderstore.entity.Owner;
-import com.sweethill.orderstore.entity.Units;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;
 import java.util.List;
 
-@UiController("orderstore_UnitsBrowse")
-@UiDescriptor("units-browse.xml")
+@UiController("orderstore_GoodsgroupsScreen")
+@UiDescriptor("goodsGroups-screen.xml")
 @LoadDataBeforeShow
-public class UnitsBrowse extends Screen {
+public class GoodsgroupsScreen extends Screen {
     @Inject
     private OrderStoreService orderStoreService;
     private Owner owner;
     @Inject
     private DataManager dataManager;
     @Inject
-    private Actions actions;
-    @Inject
-    private DataGrid<Units> unitsDataGrid;
+    private DataGrid<GoodsGroups> goodsGroupsDataGrid;
     @Inject
     private Notifications notifications;
     @Inject
-    private Metadata metadata;
-    @Inject
-    private CollectionContainer<Units> unitsDc;
+    private Actions actions;
     @Inject
     private MessageBundle messageBundle;
+    @Inject
+    private Metadata metadata;
+    @Inject
+    private CollectionContainer<GoodsGroups> goodsGroupsDc;
 
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
         CreateAction createAction = (CreateAction) actions.create(CreateAction.ID);
         createAction.withHandler(actionPerformedEvent -> {
-            if (unitsDataGrid.isEditorActive()) {
+            if (goodsGroupsDataGrid.isEditorActive()) {
                 notifications.create()
-                        .withCaption(messageBundle.formatMessage("UnitsBrowseEditMessage"))
+                        .withCaption(messageBundle.formatMessage("GoodsGroupsBrowseEditMessage"))
                         .show();
                 return;
             }
-            Units newUnits = metadata.create(Units.class);
-            Units merged = getScreenData().getDataContext().merge(newUnits);
+            GoodsGroups newGoodsGroups = metadata.create(GoodsGroups.class);
+            GoodsGroups merged = getScreenData().getDataContext().merge(newGoodsGroups);
             merged.setOwner(owner);
-            unitsDc.getMutableItems().add(merged);
-            unitsDataGrid.edit(merged);
+            goodsGroupsDc.getMutableItems().add(merged);
+            goodsGroupsDataGrid.edit(merged);
         });
-        unitsDataGrid.addAction(createAction);
+        goodsGroupsDataGrid.addAction(createAction);
 
         EditAction editAction = (EditAction) actions.create(EditAction.ID);
         editAction.withHandler(actionPerformedEvent -> {
-            Units selected = unitsDataGrid.getSingleSelected();
+            GoodsGroups selected = goodsGroupsDataGrid.getSingleSelected();
             if (selected != null) {
-                unitsDataGrid.edit(selected);
+                goodsGroupsDataGrid.edit(selected);
             } else {
                 notifications.create()
-                        .withCaption(messageBundle.formatMessage("UnitsBrowseSelectItem"))
+                        .withCaption(messageBundle.formatMessage("GoodsGroupsBrowseSelectItem"))
                         .show();
             }
         });
-        unitsDataGrid.addAction(editAction);
+        goodsGroupsDataGrid.addAction(editAction);
     }
 
-    @Subscribe("unitsDataGrid")
-    public void onUnitsDataGridEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
+    @Subscribe("goodsGroupsDataGrid")
+    public void onGoodsGroupsDataGridEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
         getScreenData().getDataContext().commit();
         getScreenData().loadAll();
     }
 
-    @Install(to = "unitsDl", target = Target.DATA_LOADER)
-    private List<Units> unitsDlLoadDelegate(LoadContext<Units> loadContext) {
-        List<Units> list;
+    @Install(to = "goodsGroupsDl", target = Target.DATA_LOADER)
+    private List<GoodsGroups> goodsGroupsDlLoadDelegate(LoadContext<GoodsGroups> loadContext) {
+        List<GoodsGroups> list;
         if (owner != null) {
-            loadContext.setQueryString("select e from orderstore_Units e where e.owner = :owner");
+            loadContext.setQueryString("select e from orderstore_GoodsGroups e where e.owner = :owner");
             LoadContext.Query query = loadContext.getQuery();
             query.setParameter("owner", owner);
         }
         list = dataManager.loadList(loadContext);
         return list;
     }
-
 }

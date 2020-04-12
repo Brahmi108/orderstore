@@ -19,5 +19,8 @@
         <entity class="com.sweethill.orderstore.entity.ExtUser">
             <include re=".*"/>
         </entity>
+        <entity class="com.sweethill.orderstore.entity.CostType">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

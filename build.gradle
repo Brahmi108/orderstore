@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '7.2.2'
+    ext.cubaVersion = '7.2.3'
     repositories {
         maven {
             url 'https://dl.bintray.com/cuba-platform/main'
@@ -176,7 +176,12 @@ task buildWar(type: CubaWarBuilding) {
     appProperties = ['cuba.automaticDatabaseUpdate': true,
                      'cuba.webPort'                : 80,
                      'cuba.connectionUrlList'      : 'http://localhost:80/app-core',
-                     'cuba.web.productionMode'     : true
+                     'cuba.web.productionMode'     : true,
+                     'cuba.dataSource.username'    : 'cuba',
+                     'cuba.dataSource.password'    : 'NitaiNimaiCuba-1',
+                     'cuba.dataSource.dbName'      : 'orderstore',
+                     'cuba.dataSource.host'        : 'localhost',
+                     'cuba.dataSource.port'        : '5432'
     ]
     webXmlPath = 'modules/web/web/WEB-INF/single-war-web.xml'
 }
