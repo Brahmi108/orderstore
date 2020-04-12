@@ -19,12 +19,7 @@
                 width="800"/>
     <layout expand="goodsGroupsesTable"
             spacing="true">
-        <filter id="filter"
-                applyTo="goodsGroupsesTable"
-                dataLoader="goodsGroupsesDl">
-            <properties include=".*"/>
-        </filter>
-        <groupTable id="goodsGroupsesTable"
+\        <groupTable id="goodsGroupsesTable"
                     width="100%"
                     dataContainer="goodsGroupsesDc">
             <columns>

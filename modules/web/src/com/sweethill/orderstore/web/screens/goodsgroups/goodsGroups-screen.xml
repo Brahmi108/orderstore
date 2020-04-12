@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         caption="msg://caption"
-        messagesPack="com.sweethill.orderstore.web.screens.units">
+        messagesPack="com.sweethill.orderstore.web.screens.goodsgroups">
     <data>
-        <collection id="unitsDc"
-                    class="com.sweethill.orderstore.entity.Units"
+        <collection id="goodsGroupsDc"
+                    class="com.sweethill.orderstore.entity.GoodsGroups"
                     view="_local">
-            <loader id="unitsDl">
+            <loader id="goodsGroupsDl">
                 <query>
-                    <![CDATA[select e from orderstore_Units e]]>
+                    <![CDATA[select e from orderstore_GoodsGroups e]]>
                 </query>
             </loader>
         </collection>
     </data>
-    <layout expand="unitsDataGrid"
+    <layout expand="goodsGroupsDataGrid"
             spacing="true">
-        <dataGrid id="unitsDataGrid"
+        <dataGrid id="goodsGroupsDataGrid"
                   editorEnabled="true"
-                  dataContainer="unitsDc"
+                  dataContainer="goodsGroupsDc"
                   width="100%">
             <actions>
                 <action id="create"/>
@@ -26,17 +26,17 @@
             </actions>
             <columns>
                 <column property="name"/>
-                <column property="shortName"/>
+                <column property="comment"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn"
-                        action="unitsDataGrid.create"/>
+                        action="goodsGroupsDataGrid.create"/>
                 <button id="editBtn"
-                        action="unitsDataGrid.edit"/>
+                        action="goodsGroupsDataGrid.edit"/>
                 <button id="removeBtn"
-                        action="unitsDataGrid.remove"/>
+                        action="goodsGroupsDataGrid.remove"/>
             </buttonsPanel>
         </dataGrid>
     </layout>
