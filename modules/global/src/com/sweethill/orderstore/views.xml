@@ -39,4 +39,7 @@
             <property name="def"/>
         </property>
     </view>
+    <view entity="orderstore_Stock" name="stock-view" extends="_local">
+        <property name="owner" view="_minimal"/>
+    </view>
 </views>
