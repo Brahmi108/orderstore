@@ -4,9 +4,7 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
-import com.haulmont.cuba.gui.actions.list.CreateAction;
-import com.haulmont.cuba.gui.actions.list.EditAction;
-import com.haulmont.cuba.gui.components.Actions;
+import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.screen.*;
@@ -27,8 +25,6 @@ public class UnitsBrowse extends Screen {
     @Inject
     private DataManager dataManager;
     @Inject
-    private Actions actions;
-    @Inject
     private DataGrid<Units> unitsDataGrid;
     @Inject
     private Notifications notifications;
@@ -38,44 +34,47 @@ public class UnitsBrowse extends Screen {
     private CollectionContainer<Units> unitsDc;
     @Inject
     private MessageBundle messageBundle;
+    private String execAction;
 
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
-        CreateAction createAction = (CreateAction) actions.create(CreateAction.ID);
-        createAction.withHandler(actionPerformedEvent -> {
-            if (unitsDataGrid.isEditorActive()) {
-                notifications.create()
-                        .withCaption(messageBundle.formatMessage("UnitsBrowseEditMessage"))
-                        .show();
-                return;
-            }
-            Units newUnits = metadata.create(Units.class);
-            Units merged = getScreenData().getDataContext().merge(newUnits);
-            merged.setOwner(owner);
-            unitsDc.getMutableItems().add(merged);
-            unitsDataGrid.edit(merged);
-        });
-        unitsDataGrid.addAction(createAction);
+    }
 
-        EditAction editAction = (EditAction) actions.create(EditAction.ID);
-        editAction.withHandler(actionPerformedEvent -> {
-            Units selected = unitsDataGrid.getSingleSelected();
-            if (selected != null) {
-                unitsDataGrid.edit(selected);
-            } else {
-                notifications.create()
-                        .withCaption(messageBundle.formatMessage("UnitsBrowseSelectItem"))
-                        .show();
-            }
-        });
-        unitsDataGrid.addAction(editAction);
+    @Subscribe("unitsDataGrid.create")
+    public void onUnitsDataGridCreate(Action.ActionPerformedEvent event) {
+        if (unitsDataGrid.isEditorActive()) {
+            notifications.create()
+                    .withCaption(messageBundle.formatMessage("UnitsBrowseEditMessage"))
+                    .show();
+            return;
+        }
+        Units newUnits = metadata.create(Units.class);
+        Units merged = getScreenData().getDataContext().merge(newUnits);
+        merged.setOwner(owner);
+        unitsDc.getMutableItems().add(merged);
+        execAction = "create";
+        unitsDataGrid.edit(merged);
+    }
+
+    @Subscribe("unitsDataGrid.edit")
+    public void onUnitsDataGridEdit(Action.ActionPerformedEvent event) {
+        Units selected = unitsDataGrid.getSingleSelected();
+        if (selected != null) {
+            execAction = "edit";
+            unitsDataGrid.edit(selected);
+        } else {
+            notifications.create()
+                    .withCaption(messageBundle.formatMessage("UnitsBrowseSelectItem"))
+                    .show();
+        }
     }
 
     @Subscribe("unitsDataGrid")
     public void onUnitsDataGridEditorPostCommit(DataGrid.EditorPostCommitEvent event) {
+        Units units=(Units)event.getItem();
         getScreenData().getDataContext().commit();
-        getScreenData().loadAll();
+        dataManager.commit(units);
     }
 
     @Install(to = "unitsDl", target = Target.DATA_LOADER)
@@ -89,5 +88,9 @@ public class UnitsBrowse extends Screen {
         list = dataManager.loadList(loadContext);
         return list;
     }
-
+    @Subscribe("unitsDataGrid")
+    public void onUnitsDataGridEditorClose(DataGrid.EditorCloseEvent event) {
+        if ( execAction.equals("create") )
+            unitsDc.getMutableItems().remove((Units) event.getItem());
+    }
 }

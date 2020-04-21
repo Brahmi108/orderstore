@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="costTypesTable"
+        messagesPack="com.sweethill.orderstore.web.screens.costtype">
+    <data readOnly="true">
+        <collection id="costTypesDc"
+                    class="com.sweethill.orderstore.entity.CostType"
+                    view="_local">
+            <loader id="costTypesDl">
+                <query>
+                    <![CDATA[select e from orderstore_CostType e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout expand="costTypesTable" width="100%" maxWidth="600px" spacing="true" height="400px">
+        <groupTable id="costTypesTable"
+                    width="100%"
+                    dataContainer="costTypesDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="def"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

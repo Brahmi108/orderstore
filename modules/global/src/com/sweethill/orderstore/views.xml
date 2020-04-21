@@ -17,9 +17,26 @@
         </property>
         <property name="group" view="_minimal"/>
         <property name="name_options" view="_minimal"/>
+        <property name="costs" view="_minimal">
+            <property name="dateBegin"/>
+            <property name="dateEnd"/>
+            <property name="good" view="_minimal">
+                <property name="code"/>
+            </property>
+        </property>
         <property name="owner" view="_minimal"/>
     </view>
     <view entity="orderstore_CostType" name="costType-view" extends="_local">
         <property name="owner" view="_local"/>
+    </view>
+    <view entity="orderstore_Cost" name="cost-view" extends="_local">
+        <property name="good" view="_minimal">
+            <property name="code"/>
+            <property name="owner" view="_minimal"/>
+        </property>
+        <property name="costType" view="_minimal">
+            <property name="owner" view="_minimal"/>
+            <property name="def"/>
+        </property>
     </view>
 </views>

@@ -46,9 +46,14 @@ public class GoodsEdit extends StandardEditor<Goods> {
     private CollectionPropertyContainer<GoodNameOption> name_optionsDC;
     @Inject
     private InstanceContainer<Goods> goodsDc;
+    @Inject
+    private DataGrid<Cost> costsTable;
+    @Inject
+    private CollectionPropertyContainer<Cost> costsDC;
+    private String execAction;
 
     @Subscribe
-    public void onInitEntity1(InitEntityEvent<Goods> event) {
+    public void onInitEntity(InitEntityEvent<Goods> event) {
         event.getEntity().setOwner(orderStoreService.getCurrentUserOwner());
     }
 
@@ -72,35 +77,60 @@ public class GoodsEdit extends StandardEditor<Goods> {
         browse.show();
     }
 
-    @Subscribe
-    public void onInit(InitEvent event) {
-        CreateAction createAction = (CreateAction) actions.create(CreateAction.ID);
-        createAction.withHandler(actionPerformedEvent -> {
-            if (name_optionsTable.isEditorActive()) {
-                notifications.create()
-                        .withCaption(messageBundle.formatMessage("name_optionsEditMessage"))
-                        .show();
-                return;
-            }
-            GoodNameOption newGoodNameOption = metadata.create(GoodNameOption.class);
-            GoodNameOption merged = getScreenData().getDataContext().merge(newGoodNameOption);
-            name_optionsDC.getMutableItems().add(merged);
-            name_optionsTable.edit(merged);
-        });
-        name_optionsTable.addAction(createAction);
+    @Subscribe("name_optionsTable.create")
+    public void onName_optionsTableCreate(Action.ActionPerformedEvent event) {
+        if (name_optionsTable.isEditorActive()) {
+            notifications.create()
+                    .withCaption(messageBundle.formatMessage("name_optionsEditMessage"))
+                    .show();
+            return;
+        }
+        GoodNameOption newGoodNameOption = metadata.create(GoodNameOption.class);
+        GoodNameOption merged = getScreenData().getDataContext().merge(newGoodNameOption);
+        name_optionsDC.getMutableItems().add(merged);
+        execAction = "create";
+        name_optionsTable.edit(merged);
+    }
 
-        EditAction editAction = (EditAction) actions.create(EditAction.ID);
-        editAction.withHandler(actionPerformedEvent -> {
-            GoodNameOption selected = name_optionsTable.getSingleSelected();
-            if (selected != null) {
-                name_optionsTable.edit(selected);
-            } else {
-                notifications.create()
-                        .withCaption(messageBundle.formatMessage("name_optionsSelectItem"))
-                        .show();
-            }
-        });
-        name_optionsTable.addAction(editAction);
+    @Subscribe("name_optionsTable.edit")
+    public void onName_optionsTableEdit(Action.ActionPerformedEvent event) {
+        GoodNameOption selected = name_optionsTable.getSingleSelected();
+        if (selected != null) {
+            execAction = "edit";
+            name_optionsTable.edit(selected);
+        } else {
+            notifications.create()
+                    .withCaption(messageBundle.formatMessage("name_optionsSelectItem"))
+                    .show();
+        }
+    }
+
+    @Subscribe("costsTable.create")
+    public void onCostsTableCreate(Action.ActionPerformedEvent event) {
+        if (costsTable.isEditorActive()) {
+            notifications.create()
+                    .withCaption(messageBundle.formatMessage("name_optionsEditMessage"))
+                    .show();
+            return;
+        }
+        Cost cost = metadata.create(Cost.class);
+        Cost merged = getScreenData().getDataContext().merge(cost);
+        costsDC.getMutableItems().add(merged);
+        execAction = "create";
+        costsTable.edit(merged);
+    }
+
+    @Subscribe("costsTable.edit")
+    public void onCostsTableEdit(Action.ActionPerformedEvent event) {
+        Cost selected = costsTable.getSingleSelected();
+        if (selected != null) {
+            execAction = "edit";
+            costsTable.edit(selected);
+        } else {
+            notifications.create()
+                    .withCaption(messageBundle.formatMessage("name_optionsSelectItem"))
+                    .show();
+        }
     }
 
     @Subscribe("name_optionsTable")
@@ -108,5 +138,23 @@ public class GoodsEdit extends StandardEditor<Goods> {
         Goods good = getEditedEntity();
         GoodNameOption option = (GoodNameOption) event.getItem();
         option.setGoods(good);
+    }
+
+    @Subscribe("costsTable")
+    public void onCostsTableEditorPreCommit(DataGrid.EditorPreCommitEvent event) {
+        Goods good = getEditedEntity();
+        Cost cost = (Cost) event.getItem();
+        cost.setGood(good);
+    }
+
+    @Subscribe("name_optionsTable")
+    public void onName_optionsTableEditorClose(DataGrid.EditorCloseEvent event) {
+        if (execAction.equals("create"))
+            name_optionsDC.getMutableItems().remove((GoodNameOption) event.getItem());
+    }
+    @Subscribe("costsTable")
+    public void onCostsTableEditorClose(DataGrid.EditorCloseEvent event) {
+        if (execAction.equals("create"))
+            costsDC.getMutableItems().remove((Cost) event.getItem());
     }
 }

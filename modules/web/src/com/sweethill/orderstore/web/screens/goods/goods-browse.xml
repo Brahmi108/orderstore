@@ -15,10 +15,8 @@
             </loader>
         </collection>
     </data>
-    <dialogMode height="600"
-                width="800"/>
     <layout expand="goodsesTable"
-            spacing="true">
+            spacing="true" width="100%">
         <filter id="filter"
                 applyTo="goodsesTable"
                 dataLoader="goodsesDl">
