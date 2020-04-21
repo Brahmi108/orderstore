@@ -20,8 +20,8 @@
                   dataContainer="goodsGroupsDc"
                   width="100%">
             <actions>
-                <action id="create"/>
-                <action id="edit"/>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>

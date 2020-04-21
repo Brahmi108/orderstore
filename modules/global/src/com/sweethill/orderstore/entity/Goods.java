@@ -54,10 +54,22 @@ public class Goods extends BaseUuidEntity implements Creatable, Updatable {
     @OneToMany(mappedBy = "goods")
     protected List<GoodNameOption> name_options;
 
+    @Composition
+    @OneToMany(mappedBy = "good")
+    protected List<Cost> costs;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "OWNER_ID")
     protected Owner owner;
+
+    public List<Cost> getCosts() {
+        return costs;
+    }
+
+    public void setCosts(List<Cost> costs) {
+        this.costs = costs;
+    }
 
     public Owner getOwner() {
         return owner;

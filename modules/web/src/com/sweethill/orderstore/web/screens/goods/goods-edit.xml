@@ -9,11 +9,12 @@
                   view="goods-view">
             <loader/>
             <collection id="name_optionsDC" property="name_options"/>
+            <collection id="costsDC" property="costs"/>
         </instance>
     </data>
-    <layout expand="editActions">
-        <form id="form" dataContainer="goodsDc">
-            <column width="600px">
+    <layout expand="editActions" width="100%" maxWidth="600px">
+        <form id="form" dataContainer="goodsDc" width="100%">
+            <column width="100%">
                 <textField id="nameField" property="name"/>
                 <pickerField id="groupField" property="group">
                     <actions>
@@ -33,13 +34,15 @@
                     </actions>
                 </pickerField>
                 <groupBox id="name_optionsBox" width="100%" caption="msg://GoodsEdit_groupBoxCaption" height="400px">
+                    <tabSheet id="tabSheet" width="100%">
+                    <tab caption="msg://Tab_Common" margin="true" spacing="true" id="tab_Good">
                     <dataGrid id="name_optionsTable"
                               editorEnabled="true"
                               dataContainer="name_optionsDC"
                               width="100%" height="300px">
                         <actions>
-                            <action id="create"/>
-                            <action id="edit"/>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
                             <action id="remove" type="remove"/>
                         </actions>
                         <columns>
@@ -56,10 +59,40 @@
                                     action="name_optionsTable.remove"/>
                         </buttonsPanel>
                     </dataGrid>
+                    </tab>
+                    <tab caption="msg://Tab_Costs" margin="true,false,false,false" spacing="true" id="tab_GoodCosts">
+                        <dataGrid id="costsTable"
+                                  editorEnabled="true"
+                                  dataContainer="costsDC"
+                                  width="100%" height="300px">
+                            <actions>
+                                <action id="create" type="create"/>
+                                <action id="edit" type="edit"/>
+                                <action id="remove" type="remove"/>
+                            </actions>
+                            <columns>
+                                <column property="dateBegin"/>
+                                <column property="dateEnd"/>
+                                <column property="costType"/>
+                                <column property="value"/>
+                            </columns>
+                            <rowsCount/>
+                            <buttonsPanel id="buttonsPanelCosts"
+                                          alwaysVisible="true">
+                                <button id="createCostBtn"
+                                        action="costsTable.create"/>
+                                <button id="editCostBtn"
+                                        action="costsTable.edit"/>
+                                <button id="removeCostBtn"
+                                        action="costsTable.remove"/>
+                            </buttonsPanel>
+                        </dataGrid>
+                    </tab>
+                    </tabSheet>
                 </groupBox>
             </column>
         </form>
-        <hbox id="editActions" spacing="true">
+        <hbox id="editActions" spacing="true" margin="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>
         </hbox>

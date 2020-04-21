@@ -9,10 +9,12 @@ import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.sweethill.orderstore.entity.CostType;
 import com.sweethill.orderstore.entity.ExtUser;
+import com.sweethill.orderstore.entity.Goods;
 import com.sweethill.orderstore.entity.Owner;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.Date;
 
 @Service(OrderStoreService.NAME)
 public class OrderStoreServiceBean implements OrderStoreService {
@@ -52,7 +54,26 @@ public class OrderStoreServiceBean implements OrderStoreService {
                 transaction.commit();
             }
         }
-
-
+    }
+    /*
+     * Получить текущую стоимость товара
+     */
+    public Double getCurrentCost(Goods good, Date date)
+    {
+        Double v_nResult = 0.0;
+        if (good == null | date == null) return null;
+        try (final Transaction transaction = persistence.createTransaction()) {
+            final EntityManager entityManager = persistence.getEntityManager();
+            final Query query = entityManager.createQuery("select x.value from orderstore_Cost x, orderstore_CostType e " +
+                    "where x.costType = e "+
+                    "and x.good = :good "+
+                    "and e.def = true "+
+                    "and x.dateBegin <= :date and ( x.dateEnd >= :date or x.dateEnd is null )");
+            query.setParameter("good", good);
+            query.setParameter("date", date);
+            v_nResult = (Double) query.getFirstResult();
+            transaction.commit();
+        }
+        return v_nResult;
     }
 }
