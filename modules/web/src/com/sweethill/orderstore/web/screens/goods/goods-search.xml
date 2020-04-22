@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="goodsesTable"
+        messagesPack="com.sweethill.orderstore.web.screens.goods">
+    <data readOnly="true">
+        <collection id="goodsesDc"
+                    class="com.sweethill.orderstore.entity.Goods"
+                    view="goods-view">
+            <loader id="goodsesDl">
+                <query>
+                    <![CDATA[select e from orderstore_Goods e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="goodsesTable"
+            spacing="true">
+        <dataGrid id="goodsesTable"
+                  width="100%"
+                  dataContainer="goodsesDc">
+            <actions>
+            </actions>
+            <columns>
+                <column property="name" id="name"/>
+                <column property="code" id="code"/>
+                <column property="unit" id="unit"/>
+                <column property="group" id="group"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

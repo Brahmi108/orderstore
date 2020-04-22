@@ -28,5 +28,11 @@
         <entity class="com.sweethill.orderstore.entity.Stock">
             <include re=".*"/>
         </entity>
+        <entity class="com.sweethill.orderstore.entity.StockMovement">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.StockRecord">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

@@ -11,5 +11,7 @@
         <class>com.sweethill.orderstore.entity.CostType</class>
         <class>com.sweethill.orderstore.entity.Cost</class>
         <class>com.sweethill.orderstore.entity.Stock</class>
+        <class>com.sweethill.orderstore.entity.StockMovement</class>
+        <class>com.sweethill.orderstore.entity.StockRecord</class>
     </persistence-unit>
 </persistence>

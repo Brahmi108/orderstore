@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="stockMovementsTable"
+        messagesPack="com.sweethill.orderstore.web.screens.stockmovement">
+    <data readOnly="true">
+        <collection id="stockMovementsDc"
+                    class="com.sweethill.orderstore.entity.StockMovement"
+                    view="stockMovement-view">
+            <loader id="stockMovementsDl">
+                <query>
+                    <![CDATA[select e from orderstore_StockMovement e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout expand="stockMovementsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="stockMovementsTable"
+                dataLoader="stockMovementsDl">
+            <properties include=".*"/>
+        </filter>
+        <dataGrid id="stockMovementsTable"
+                    width="100%"
+                    settingsEnabled="false"
+                    dataContainer="stockMovementsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="docDate" property="docDate" width="150"/>
+                <column id="docNumber" property="docNumber" width="150"/>
+                <column id="income" property="income" width="100"/>
+                <column id="notes" property="notes"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="stockMovementsTable.create"/>
+                <button id="editBtn" action="stockMovementsTable.edit"/>
+                <button id="removeBtn" action="stockMovementsTable.remove"/>
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
