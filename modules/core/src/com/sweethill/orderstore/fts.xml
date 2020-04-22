@@ -25,5 +25,8 @@
         <entity class="com.sweethill.orderstore.entity.Cost">
             <include re=".*"/>
         </entity>
+        <entity class="com.sweethill.orderstore.entity.Stock">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

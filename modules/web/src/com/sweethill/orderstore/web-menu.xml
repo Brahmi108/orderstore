@@ -6,6 +6,9 @@
         <item screen="orderstore_GoodsgroupsScreen"/>
         <item screen="orderstore_CostTypeScreen"/>
     </menu>
+    <menu id="stock_main" insertBefore="reports">
+        <item screen="orderstore_StockScreen"/>
+    </menu>
     <menu id="application-orderstore" insertBefore="administration"/>
     <item screen="orderstore_Owner.browse" insertBefore="sec$User.browse"/>
 </menu-config>

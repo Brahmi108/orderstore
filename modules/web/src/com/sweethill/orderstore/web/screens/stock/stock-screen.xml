@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://caption"
+        messagesPack="com.sweethill.orderstore.web.screens.stock">
+    <data>
+        <collection id="stocksDc"
+                    class="com.sweethill.orderstore.entity.Stock"
+                    view="_local">
+            <loader id="stocksDl">
+                <query>
+                    <![CDATA[select e from orderstore_Stock e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout expand="stocksDataGrid"
+            spacing="true">
+        <dataGrid id="stocksDataGrid"
+                  editorEnabled="true"
+                  dataContainer="stocksDc"
+                  width="100%">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="address"/>
+                <column property="def"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="stocksDataGrid.create"/>
+                <button id="editBtn"
+                        action="stocksDataGrid.edit"/>
+                <button id="removeBtn"
+                        action="stocksDataGrid.remove"/>
+            </buttonsPanel>
+        </dataGrid>
+    </layout>
+</window>

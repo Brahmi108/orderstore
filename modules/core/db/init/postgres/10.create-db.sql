@@ -112,3 +112,20 @@ create table ORDERSTORE_COST (
     primary key (ID)
 )^
 -- end ORDERSTORE_COST
+-- begin ORDERSTORE_STOCK
+create table ORDERSTORE_STOCK (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NAME varchar(255) not null,
+    OWNER_ID uuid not null,
+    ADDRESS varchar(2000),
+    DEF boolean,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_STOCK
