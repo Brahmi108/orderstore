@@ -3,18 +3,14 @@ package com.sweethill.orderstore.web.screens.goods;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
-import com.haulmont.cuba.gui.actions.list.CreateAction;
-import com.haulmont.cuba.gui.actions.list.EditAction;
 import com.haulmont.cuba.gui.components.Action;
-import com.haulmont.cuba.gui.components.Actions;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
-import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.*;
 import com.sweethill.orderstore.service.OrderStoreService;
-import com.sweethill.orderstore.web.screens.goodsgroups.GoodsGroupsSearch;
+import com.sweethill.orderstore.web.screens.goodsgroups.GoodsGroupsBrowse;
 import com.sweethill.orderstore.web.screens.units.UnitsSearch;
 
 import javax.inject.Inject;
@@ -36,8 +32,6 @@ public class GoodsEdit extends StandardEditor<Goods> {
     private DataGrid<GoodNameOption> name_optionsTable;
     @Inject
     private Notifications notifications;
-    @Inject
-    private Actions actions;
     @Inject
     private Metadata metadata;
     @Inject
@@ -67,9 +61,9 @@ public class GoodsEdit extends StandardEditor<Goods> {
 
     @Subscribe("groupField.lookup")
     public void onGroupFieldLookup(Action.ActionPerformedEvent event) {
-        GoodsGroupsSearch browse = screenBuilders.lookup(GoodsGroups.class, this)
+        GoodsGroupsBrowse browse = screenBuilders.lookup(GoodsGroups.class, this)
                 .withField(groupField)
-                .withScreenClass(GoodsGroupsSearch.class) // specific lookup screen
+                .withScreenClass(GoodsGroupsBrowse.class) // specific lookup screen
                 .withLaunchMode(OpenMode.DIALOG)    // open as modal dialog
                 .build();
         browse.show();

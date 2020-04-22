@@ -11,23 +11,35 @@
             <loader id="goodsGroupsesDl">
                 <query>
                     <![CDATA[select e from orderstore_GoodsGroups e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
+                forceDialog="true"
                 width="800"/>
     <layout expand="goodsGroupsesTable"
             spacing="true">
-\        <groupTable id="goodsGroupsesTable"
-                    width="100%"
-                    dataContainer="goodsGroupsesDc">
+        <dataGrid id="goodsGroupsesTable"
+                  width="100%"
+                  dataContainer="goodsGroupsesDc">
+            <actions>
+            </actions>
             <columns>
-                <column id="name"/>
-                <column id="comment"/>
+                <column property="name" id="name"/>
+                <column property="comment" id="comment"/>
             </columns>
-            <rowsCount/>
-        </groupTable>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

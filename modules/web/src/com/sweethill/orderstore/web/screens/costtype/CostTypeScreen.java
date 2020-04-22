@@ -4,6 +4,7 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.components.Action;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.Screen;
 import com.haulmont.cuba.gui.screen.UiController;
 import com.haulmont.cuba.gui.screen.UiDescriptor;
@@ -38,10 +39,13 @@ public class CostTypeScreen extends Screen {
     @Inject
     private Metadata metadata;
     private String execAction;
+    @Inject
+    private CollectionLoader<CostType> costTypeDl;
 
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
+        costTypeDl.setParameter("owner", owner);
     }
 
     @Subscribe("costTypeDataGrid.create")
@@ -83,18 +87,6 @@ public class CostTypeScreen extends Screen {
             orderStoreService.setDefaultCostType(costType);
             getScreenData().loadAll();
         }
-    }
-
-    @Install(to = "costTypeDl", target = Target.DATA_LOADER)
-    private List<CostType> costTypeDlLoadDelegate(LoadContext<CostType> loadContext) {
-        List<CostType> list;
-        if (owner != null) {
-            loadContext.setQueryString("select e from orderstore_CostType e where e.owner = :owner");
-            LoadContext.Query query = loadContext.getQuery();
-            query.setParameter("owner", owner);
-        }
-        list = dataManager.loadList(loadContext);
-        return list;
     }
 
     @Subscribe("costTypeDataGrid")

@@ -1,19 +1,18 @@
 package com.sweethill.orderstore.web.screens.stock;
 
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.model.CollectionContainer;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.Owner;
 import com.sweethill.orderstore.entity.Stock;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @UiController("orderstore_StockScreen")
 @UiDescriptor("stock-screen.xml")
@@ -35,10 +34,13 @@ public class StockScreen extends Screen {
     @Inject
     private MessageBundle messageBundle;
     private String execAction;
+    @Inject
+    private CollectionLoader<Stock> stocksDl;
 
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
+        stocksDl.setParameter("owner", owner);
     }
 
     @Subscribe("stocksDataGrid.create")
@@ -77,17 +79,6 @@ public class StockScreen extends Screen {
         dataManager.commit(stocks);
     }
 
-    @Install(to = "stocksDl", target = Target.DATA_LOADER)
-    private List<Stock> stocksDlLoadDelegate(LoadContext<Stock> loadContext) {
-        List<Stock> list;
-        if (owner != null) {
-            loadContext.setQueryString("select e from orderstore_Stock e where e.owner = :owner");
-            LoadContext.Query query = loadContext.getQuery();
-            query.setParameter("owner", owner);
-        }
-        list = dataManager.loadList(loadContext);
-        return list;
-    }
     @Subscribe("stocksDataGrid")
     public void onStocksDataGridEditorClose(DataGrid.EditorCloseEvent event) {
         Stock stock = (Stock) event.getItem();

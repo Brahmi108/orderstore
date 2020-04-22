@@ -11,11 +11,19 @@
             <loader id="unitsesDl">
                 <query>
                     <![CDATA[select e from orderstore_Units e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
+                forceDialog="true"
                 width="800"/>
     <layout expand="unitsesTable"
             spacing="true">

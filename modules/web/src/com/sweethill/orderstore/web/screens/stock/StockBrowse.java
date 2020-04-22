@@ -1,26 +1,26 @@
-package com.sweethill.orderstore.web.screens.units;
+package com.sweethill.orderstore.web.screens.stock;
 
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.Owner;
-import com.sweethill.orderstore.entity.Units;
+import com.sweethill.orderstore.entity.Stock;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;
 
-@UiController("orderstore_Units.browse")
-@UiDescriptor("units-search.xml")
-@LookupComponent("unitsesTable")
+@UiController("orderstore_Stock.browse")
+@UiDescriptor("stock-browse.xml")
+@LookupComponent("stocksTable")
 @LoadDataBeforeShow
-public class UnitsSearch extends StandardLookup<Units> {
-    @Inject
-    private CollectionLoader<Units> unitsesDl;
+public class StockBrowse extends StandardLookup<Stock> {
     @Inject
     private OrderStoreService orderStoreService;
+    @Inject
+    private CollectionLoader<Stock> stocksDl;
 
     @Subscribe
     public void onInit(InitEvent event) {
         Owner owner = orderStoreService.getCurrentUserOwner();
-        unitsesDl.setParameter("owner", owner);
+        stocksDl.setParameter("owner", owner);
     }
 }

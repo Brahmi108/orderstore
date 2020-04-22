@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://caption"
         messagesPack="com.sweethill.orderstore.web.screens.costtype">
     <data>
         <collection id="costTypeDc"
                     class="com.sweethill.orderstore.entity.CostType"
                     view="costType-view">
-            <loader id="costTypeDl"/>
+            <loader id="costTypeDl">
+                <query>
+                    <![CDATA[select e from orderstore_CostType e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
         </collection>
     </data>
     <layout expand="costTypeDataGrid"
