@@ -1,19 +1,18 @@
 package com.sweethill.orderstore.web.screens.units;
 
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.model.CollectionContainer;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.Owner;
 import com.sweethill.orderstore.entity.Units;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @UiController("orderstore_UnitsBrowse")
 @UiDescriptor("units-browse.xml")
@@ -35,10 +34,13 @@ public class UnitsBrowse extends Screen {
     @Inject
     private MessageBundle messageBundle;
     private String execAction;
+    @Inject
+    private CollectionLoader<Units> unitsDl;
 
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
+        unitsDl.setParameter("owner", owner);
     }
 
     @Subscribe("unitsDataGrid.create")
@@ -77,17 +79,6 @@ public class UnitsBrowse extends Screen {
         dataManager.commit(units);
     }
 
-    @Install(to = "unitsDl", target = Target.DATA_LOADER)
-    private List<Units> unitsDlLoadDelegate(LoadContext<Units> loadContext) {
-        List<Units> list;
-        if (owner != null) {
-            loadContext.setQueryString("select e from orderstore_Units e where e.owner = :owner");
-            LoadContext.Query query = loadContext.getQuery();
-            query.setParameter("owner", owner);
-        }
-        list = dataManager.loadList(loadContext);
-        return list;
-    }
     @Subscribe("unitsDataGrid")
     public void onUnitsDataGridEditorClose(DataGrid.EditorCloseEvent event) {
         Units unit = (Units) event.getItem();

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
-        caption="msg://caption"
+        caption="msg://browseCaption"
+        focusComponent="stocksTable"
         messagesPack="com.sweethill.orderstore.web.screens.stock">
-    <data>
+    <data readOnly="true">
         <collection id="stocksDc"
                     class="com.sweethill.orderstore.entity.Stock"
                     view="_local">
@@ -21,32 +22,28 @@
             </loader>
         </collection>
     </data>
-    <layout expand="stocksDataGrid"
+    <dialogMode height="600"
+                forceDialog="true"
+                width="800"/>
+    <layout expand="stocksTable"
             spacing="true">
-        <dataGrid id="stocksDataGrid"
-                  editorEnabled="true"
-                  dataContainer="stocksDc"
-                  width="100%">
+        <dataGrid id="stocksTable"
+                  width="100%"
+                  dataContainer="stocksDc">
             <actions>
-                <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
-                <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column property="name"/>
-                <column property="address"/>
-                <column property="def"/>
+                <column property="name" id="name"/>
+                <column property="address" id="address"/>
+                <column property="def" id="def"/>
             </columns>
-            <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn"
-                        action="stocksDataGrid.create"/>
-                <button id="editBtn"
-                        action="stocksDataGrid.edit"/>
-                <button id="removeBtn"
-                        action="stocksDataGrid.remove"/>
             </buttonsPanel>
         </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
     </layout>
 </window>

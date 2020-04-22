@@ -10,7 +10,14 @@
                     view="stockMovement-view">
             <loader id="stockMovementsDl">
                 <query>
-                    <![CDATA[select e from orderstore_StockMovement e]]>
+                    <![CDATA[select e from orderstore_StockMovement e, orderstore_Stock s where s = e.stock]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>s.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -20,7 +27,7 @@
         <filter id="filter"
                 applyTo="stockMovementsTable"
                 dataLoader="stockMovementsDl">
-            <properties include=".*"/>
+            <properties include="(docNumber)|(docDate)|(income)|(notes)"/>
         </filter>
         <dataGrid id="stockMovementsTable"
                     width="100%"

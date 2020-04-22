@@ -1,17 +1,15 @@
 package com.sweethill.orderstore.web.screens.stockmovement;
 
-import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.components.actions.BaseAction;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.gui.screen.LookupComponent;
 import com.sweethill.orderstore.entity.Owner;
 import com.sweethill.orderstore.entity.StockMovement;
 import com.sweethill.orderstore.entity.StockRecord;
 import com.sweethill.orderstore.service.OrderStoreService;
-import org.apache.poi.hpsf.Decimal;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -27,16 +25,15 @@ public class StockMovementBrowse extends StandardLookup<StockMovement> {
     private UiComponents uiComponents;
     @Inject
     private OrderStoreService orderStoreService;
-    private Owner owner;
-    @Inject
-    private DataManager dataManager;
     @Inject
     private MessageBundle messageBundle;
+    @Inject
+    private CollectionLoader<StockMovement> stockMovementsDl;
 
     @Subscribe
     public void onInit(InitEvent event) {
-        owner = orderStoreService.getCurrentUserOwner();
-
+        Owner owner = orderStoreService.getCurrentUserOwner();
+        stockMovementsDl.setParameter("owner", owner);
         stockMovementsTable.setItemClickAction(new BaseAction("itemClickAction")
                 .withHandler(actionPerformedEvent ->
                         stockMovementsTable.setDetailsVisible(stockMovementsTable.getSingleSelected(), true)));
@@ -57,19 +54,6 @@ public class StockMovementBrowse extends StandardLookup<StockMovement> {
         }, 3);
         column.setCaption(messageBundle.formatMessage("stockMovementsTable_TotalCaption"));
         column.setWidth(200);
-    }
-
-    @Install(to = "stockMovementsDl", target = Target.DATA_LOADER)
-    private List<StockMovement> stockMovementsDlLoadDelegate(LoadContext<StockMovement> loadContext) {
-        List<StockMovement> list;
-        if (owner != null) {
-            loadContext.setQueryString("select e from orderstore_StockMovement e, orderstore_Stock s " +
-                                        "where s = e.stock and s.owner = :owner");
-            LoadContext.Query query = loadContext.getQuery();
-            query.setParameter("owner", owner);
-        }
-        list = dataManager.loadList(loadContext);
-        return list;
     }
 
     @Install(to = "stockMovementsTable", subject = "detailsGenerator")

@@ -11,6 +11,13 @@
             <loader id="goodsesDl">
                 <query>
                     <![CDATA[select e from orderstore_Goods e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -20,7 +27,7 @@
         <filter id="filter"
                 applyTo="goodsesTable"
                 dataLoader="goodsesDl">
-            <properties include=".*"/>
+            <properties include="(name)|(code)|(unit)|(group)"/>
         </filter>
         <groupTable id="goodsesTable"
                     width="100%"

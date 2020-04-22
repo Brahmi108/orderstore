@@ -1,19 +1,18 @@
 package com.sweethill.orderstore.web.screens.goodsgroups;
 
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.model.CollectionContainer;
+import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.GoodsGroups;
 import com.sweethill.orderstore.entity.Owner;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @UiController("orderstore_GoodsgroupsScreen")
 @UiDescriptor("goodsGroups-screen.xml")
@@ -35,10 +34,13 @@ public class GoodsgroupsScreen extends Screen {
     @Inject
     private CollectionContainer<GoodsGroups> goodsGroupsDc;
     private String execAction;
+    @Inject
+    private CollectionLoader<GoodsGroups> goodsGroupsDl;
 
     @Subscribe
     public void onInit(InitEvent event) {
         owner = orderStoreService.getCurrentUserOwner();
+        goodsGroupsDl.setParameter("owner", owner);
     }
 
     @Subscribe("goodsGroupsDataGrid.create")
@@ -77,17 +79,6 @@ public class GoodsgroupsScreen extends Screen {
         dataManager.commit(goodsGroups);
     }
 
-    @Install(to = "goodsGroupsDl", target = Target.DATA_LOADER)
-    private List<GoodsGroups> goodsGroupsDlLoadDelegate(LoadContext<GoodsGroups> loadContext) {
-        List<GoodsGroups> list;
-        if (owner != null) {
-            loadContext.setQueryString("select e from orderstore_GoodsGroups e where e.owner = :owner");
-            LoadContext.Query query = loadContext.getQuery();
-            query.setParameter("owner", owner);
-        }
-        list = dataManager.loadList(loadContext);
-        return list;
-    }
     @Subscribe("goodsGroupsDataGrid")
     public void onGoodsGroupsDataGridEditorClose(DataGrid.EditorCloseEvent event) {
         GoodsGroups goodsGroups = (GoodsGroups) event.getItem();
