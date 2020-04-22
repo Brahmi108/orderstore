@@ -45,8 +45,6 @@ public class GoodsEdit extends StandardEditor<Goods> {
     @Inject
     private CollectionPropertyContainer<GoodNameOption> name_optionsDC;
     @Inject
-    private InstanceContainer<Goods> goodsDc;
-    @Inject
     private DataGrid<Cost> costsTable;
     @Inject
     private CollectionPropertyContainer<Cost> costsDC;
@@ -149,12 +147,18 @@ public class GoodsEdit extends StandardEditor<Goods> {
 
     @Subscribe("name_optionsTable")
     public void onName_optionsTableEditorClose(DataGrid.EditorCloseEvent event) {
-        if (execAction.equals("create"))
-            name_optionsDC.getMutableItems().remove((GoodNameOption) event.getItem());
+        GoodNameOption goodNameOption = (GoodNameOption) event.getItem();
+        if (execAction.equals("create")) {
+            name_optionsDC.getMutableItems().remove(goodNameOption);
+            getScreenData().getDataContext().remove(goodNameOption);
+        }
     }
     @Subscribe("costsTable")
     public void onCostsTableEditorClose(DataGrid.EditorCloseEvent event) {
-        if (execAction.equals("create"))
-            costsDC.getMutableItems().remove((Cost) event.getItem());
+        Cost cost = (Cost) event.getItem();
+        if (execAction.equals("create")) {
+            costsDC.getMutableItems().remove(cost);
+            getScreenData().getDataContext().remove(cost);
+        }
     }
 }

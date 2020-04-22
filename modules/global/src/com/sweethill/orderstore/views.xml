@@ -42,4 +42,23 @@
     <view entity="orderstore_Stock" name="stock-view" extends="_local">
         <property name="owner" view="_minimal"/>
     </view>
+    <view entity="orderstore_StockMovement" name="stockMovement-view" extends="_local">
+        <property name="stock" view="_minimal">
+            <property name="def"/>
+        </property>
+        <property name="records" view="_minimal">
+            <property name="stockMovement" view="_minimal"/>
+            <property name="note"/>
+            <property name="good" view="_minimal">
+                <property name="code"/>
+            </property>
+            <property name="price"/>
+            <property name="quantity"/>
+            <property name="total"/>
+        </property>
+    </view>
+    <view entity="orderstore_StockRecord" name="stockRecord-view" extends="_local">
+        <property name="stockMovement" view="_minimal"/>
+        <property name="good" view="_minimal"/>
+    </view>
 </views>

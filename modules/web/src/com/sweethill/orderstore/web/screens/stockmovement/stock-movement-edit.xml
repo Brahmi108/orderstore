@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.sweethill.orderstore.web.screens.stockmovement">
+    <data>
+        <instance id="stockMovementDc"
+                  class="com.sweethill.orderstore.entity.StockMovement"
+                  view="stockMovement-view">
+            <loader/>
+            <collection id="recordsDC" property="records"/>
+        </instance>
+    </data>
+    <layout expand="editActions" spacing="true" minWidth="500px" width="100%">
+        <form id="form" dataContainer="stockMovementDc" width="100%">
+            <column width="100%">
+                <pickerField id="stockField" property="stock" width="400px">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <dateField id="docDateField" property="docDate" width="300px"/>
+                <textField id="docNumberField" property="docNumber" width="200px"/>
+                <checkBox id="incomeField" property="income"/>
+                <textField id="notesField" property="notes" width="100%"/>
+                <groupBox id="stockRecords_Box" width="100%" caption="msg://stockRecords_groupBoxCaption" height="400px">
+                    <dataGrid id="stockRecords_Table"
+                              editorEnabled="true"
+                              dataContainer="recordsDC"
+                              width="100%" height="350px">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column property="good" width="400px"/>
+                            <column property="price" width="150px"/>
+                            <column property="quantity" width="150px"/>
+                            <column property="note"/>
+                        </columns>
+                        <rowsCount/>
+                        <buttonsPanel id="buttonsPanel"
+                                      alwaysVisible="true">
+                            <button id="createBtn"
+                                    action="stockRecords_Table.create"/>
+                            <button id="editBtn"
+                                    action="stockRecords_Table.edit"/>
+                            <button id="removeBtn"
+                                    action="stockRecords_Table.remove"/>
+                        </buttonsPanel>
+                    </dataGrid>
+                </groupBox>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

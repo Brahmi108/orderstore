@@ -7,14 +7,12 @@ import com.haulmont.cuba.core.Transaction;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.UserSessionSource;
-import com.sweethill.orderstore.entity.CostType;
-import com.sweethill.orderstore.entity.ExtUser;
-import com.sweethill.orderstore.entity.Goods;
-import com.sweethill.orderstore.entity.Owner;
+import com.sweethill.orderstore.entity.*;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 
 @Service(OrderStoreService.NAME)
 public class OrderStoreServiceBean implements OrderStoreService {
@@ -25,7 +23,7 @@ public class OrderStoreServiceBean implements OrderStoreService {
     @Inject
     private Persistence persistence;
     /*
-     * Gjkexbnm ntreotuj dkfltkmwf
+     * Получить текущего владкльца
      */
     public Owner getCurrentUserOwner() {
         Owner owner;
@@ -75,5 +73,53 @@ public class OrderStoreServiceBean implements OrderStoreService {
             transaction.commit();
         }
         return v_nResult;
+    }
+    /*
+     * Получить итоговую стоимость товаров в движении по складу
+     */
+    public Double getStockMovementCost(StockMovement stockMovement)
+    {
+        Double v_nResult = 0.0;
+        if (stockMovement == null ) return null;
+        try (final Transaction transaction = persistence.createTransaction()) {
+            final EntityManager entityManager = persistence.getEntityManager();
+            final Query query = entityManager.createQuery("select sum(x.total) from orderstore_StockRecord x " +
+                    "where x.stockMovement = :stockMovement ");
+            query.setParameter("stockMovement", stockMovement);
+            v_nResult = (Double) query.getFirstResult();
+            transaction.commit();
+        }
+        return v_nResult;
+    }
+    /*
+     * Получить содержимое движенияч по складу
+     */
+    public List<StockRecord> loadStockRecords(StockMovement stockMovement)
+    {
+        LoadContext<StockRecord> lc = LoadContext.create(StockRecord.class);
+        LoadContext.Query query =
+                LoadContext.createQuery("select e from orderstore_StockRecord e where e.stockMovement = :stockMovement")
+                        .setParameter("stockMovement", stockMovement);
+        lc.setView("stockRecord-view");
+        lc.setQuery(query);
+        return dataManager.loadList(lc);
+    }
+
+    /*
+     * Получить склад по умолчанию
+     */
+    public Stock getDefaultStock()
+    {
+        Owner owner = getCurrentUserOwner();
+        Stock stock = null;
+        if (owner == null) return null;
+        try (final Transaction transaction = persistence.createTransaction()) {
+            final EntityManager entityManager = persistence.getEntityManager();
+            final Query query = entityManager.createQuery("select e from orderstore_Stock e where e.def = true and e.owner = :owner");
+            query.setParameter("owner", owner);
+            stock = (Stock) query.getFirstResult();
+            transaction.commit();
+        }
+        return stock;
     }
 }

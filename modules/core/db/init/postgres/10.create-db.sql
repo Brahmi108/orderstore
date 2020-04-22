@@ -95,13 +95,11 @@ create table ORDERSTORE_COST_TYPE (
 -- begin ORDERSTORE_COST
 create table ORDERSTORE_COST (
     ID uuid,
-    VERSION integer not null,
-    CREATE_TS timestamp,
-    CREATED_BY varchar(50),
     UPDATE_TS timestamp,
     UPDATED_BY varchar(50),
-    DELETE_TS timestamp,
-    DELETED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
     --
     COST_TYPE_ID uuid not null,
     DATA_BEGIN date not null,
@@ -129,3 +127,42 @@ create table ORDERSTORE_STOCK (
     primary key (ID)
 )^
 -- end ORDERSTORE_STOCK
+-- begin ORDERSTORE_STOCK_RECORD
+create table ORDERSTORE_STOCK_RECORD (
+    ID uuid,
+    VERSION integer not null,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    --
+    STOCK_MOVEMENT_ID uuid,
+    NOTE varchar(1000),
+    GOOD_ID uuid not null,
+    PRICE double precision not null,
+    QUANTITY double precision not null,
+    TOTAL double precision not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_STOCK_RECORD
+-- begin ORDERSTORE_STOCK_MOVEMENT
+create table ORDERSTORE_STOCK_MOVEMENT (
+    ID uuid,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    STOCK_ID uuid not null,
+    DATE_FACT date not null,
+    NUM varchar(255) not null,
+    CREATE_TIME timestamp not null,
+    PRIORITY bigint not null,
+    INCOME boolean not null,
+    NOTES varchar(1000),
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_STOCK_MOVEMENT

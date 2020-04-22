@@ -99,7 +99,10 @@ public class CostTypeScreen extends Screen {
 
     @Subscribe("costTypeDataGrid")
     public void onCostTypeDataGridEditorClose(DataGrid.EditorCloseEvent event) {
-        if (execAction.equals("create"))
-            costTypeDc.getMutableItems().remove((CostType) event.getItem());
+        CostType costType = (CostType) event.getItem();
+        if (execAction.equals("create")) {
+            costTypeDc.getMutableItems().remove(costType);
+            getScreenData().getDataContext().remove(costType);
+        }
     }
 }

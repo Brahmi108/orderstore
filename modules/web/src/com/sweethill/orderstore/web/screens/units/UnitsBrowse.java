@@ -90,7 +90,10 @@ public class UnitsBrowse extends Screen {
     }
     @Subscribe("unitsDataGrid")
     public void onUnitsDataGridEditorClose(DataGrid.EditorCloseEvent event) {
-        if ( execAction.equals("create") )
-            unitsDc.getMutableItems().remove((Units) event.getItem());
+        Units unit = (Units) event.getItem();
+        if ( execAction.equals("create") ) {
+            unitsDc.getMutableItems().remove(unit);
+            getScreenData().getDataContext().remove(unit);
+        }
     }
 }
