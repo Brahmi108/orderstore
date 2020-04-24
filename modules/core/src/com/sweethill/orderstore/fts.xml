@@ -34,5 +34,11 @@
         <entity class="com.sweethill.orderstore.entity.StockRecord">
             <include re=".*"/>
         </entity>
+        <entity class="com.sweethill.orderstore.entity.production.management.ProductSpecification">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.production.management.RowMaterial">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

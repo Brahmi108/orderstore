@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
     <menu id="Goods" insertBefore="reports">
-        <item screen="orderstore_Goods.browse"/>
+        <item screen="orderstore_Goods.screen"/>
         <item screen="orderstore_UnitsBrowse"/>
         <item screen="orderstore_GoodsgroupsScreen"/>
         <item screen="orderstore_CostTypeScreen"/>
@@ -9,6 +9,9 @@
     <menu id="stock_main" insertBefore="reports">
         <item screen="orderstore_StockScreen"/>
         <item screen="orderstore_StockMovement.browse"/>
+    </menu>
+    <menu id="Production" insertBefore="reports" icon="icons/wf-design-scripts.png">
+        <item screen="orderstore_ProductSpecification.screen" id="ProductSpecificationScreenm"/>
     </menu>
     <menu id="application-orderstore" insertBefore="administration"/>
     <item screen="orderstore_Owner.browse" insertBefore="sec$User.browse"/>

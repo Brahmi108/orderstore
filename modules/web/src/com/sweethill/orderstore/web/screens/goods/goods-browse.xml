@@ -7,7 +7,7 @@
     <data readOnly="true">
         <collection id="goodsesDc"
                     class="com.sweethill.orderstore.entity.Goods"
-                    view="_local">
+                    view="goods-view">
             <loader id="goodsesDl">
                 <query>
                     <![CDATA[select e from orderstore_Goods e]]>
@@ -22,33 +22,26 @@
             </loader>
         </collection>
     </data>
+    <dialogMode height="600"
+                forceDialog="true"
+                width="800"/>
     <layout expand="goodsesTable"
-            spacing="true" width="100%">
-        <filter id="filter"
-                applyTo="goodsesTable"
-                dataLoader="goodsesDl">
-            <properties include="(name)|(code)|(unit)|(group)"/>
-        </filter>
-        <groupTable id="goodsesTable"
-                    width="100%"
-                    dataContainer="goodsesDc">
+            spacing="true">
+        <dataGrid id="goodsesTable"
+                  width="100%"
+                  dataContainer="goodsesDc">
             <actions>
-                <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
-                <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="name"/>
-                <column id="code"/>
+                <column property="name" id="name"/>
+                <column property="code" id="code"/>
+                <column property="unit" id="unit"/>
+                <column property="group" id="group"/>
             </columns>
-            <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="goodsesTable.create"/>
-                <button id="editBtn" action="goodsesTable.edit"/>
-                <button id="removeBtn" action="goodsesTable.remove"/>
             </buttonsPanel>
-        </groupTable>
+        </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

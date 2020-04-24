@@ -25,11 +25,7 @@
                 <textField id="codeField" property="code"/>
                 <pickerField id="unitField" property="unit">
                     <actions>
-                        <action id="lookup" type="picker_lookup">
-                            <properties>
-                                <property name="screenId" value="orderstore_GoodsGroups.search"/>
-                            </properties>
-                        </action>
+                        <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>

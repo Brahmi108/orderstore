@@ -166,3 +166,40 @@ create table ORDERSTORE_STOCK_MOVEMENT (
     primary key (ID)
 )^
 -- end ORDERSTORE_STOCK_MOVEMENT
+-- begin ORDERSTORE_ROW_MATERIAL
+create table ORDERSTORE_ROW_MATERIAL (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    GOOD_ID uuid not null,
+    QUANTITY double precision not null,
+    UNIT_ID uuid not null,
+    PRODUCT_SPECIFICATION_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ROW_MATERIAL
+-- begin ORDERSTORE_PRODUCT_SPECIFICATION
+create table ORDERSTORE_PRODUCT_SPECIFICATION (
+    ID uuid,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NAME varchar(255) not null,
+    PRODUCT_ID uuid not null,
+    QUANTITY double precision not null,
+    UNIT_ID uuid not null,
+    ACTIVE boolean,
+    OWNER_ID uuid not null,
+    INSTRUCTION text,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_PRODUCT_SPECIFICATION

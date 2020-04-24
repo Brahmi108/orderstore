@@ -3,23 +3,13 @@ package com.sweethill.orderstore.web.screens.stockmovement;
 import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
-import com.haulmont.cuba.gui.ScreenBuilders;
-import com.haulmont.cuba.gui.UiComponents;
-import com.haulmont.cuba.gui.actions.picker.ClearAction;
-import com.haulmont.cuba.gui.actions.picker.LookupAction;
-import com.haulmont.cuba.gui.actions.picker.OpenAction;
 import com.haulmont.cuba.gui.components.Action;
-import com.haulmont.cuba.gui.components.Actions;
 import com.haulmont.cuba.gui.components.DataGrid;
-import com.haulmont.cuba.gui.components.PickerField;
-import com.haulmont.cuba.gui.components.data.value.ContainerValueSource;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
-import com.sweethill.orderstore.entity.Goods;
 import com.sweethill.orderstore.entity.StockMovement;
 import com.sweethill.orderstore.entity.StockRecord;
 import com.sweethill.orderstore.service.OrderStoreService;
-import com.sweethill.orderstore.web.screens.goods.GoodsSearch;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
@@ -45,31 +35,6 @@ public class StockMovementEdit extends StandardEditor<StockMovement> {
     private CollectionPropertyContainer<StockRecord> recordsDC;
     @Inject
     private UniqueNumbersService uniqueNumbersService;
-    @Inject
-    private UiComponents uiComponents;
-    @Inject
-    private ScreenBuilders screenBuilders;
-    @Inject
-    private Actions actions;
-
-    @Subscribe
-    public void onInit(InitEvent event) {
-        stockRecords_Table.getColumnNN("good").setEditFieldGenerator(context -> {
-            PickerField<Goods> pickerField= uiComponents.create(PickerField.NAME);
-            pickerField.setValueSource(new ContainerValueSource<>(recordsDC, "good"));
-            pickerField.addAction(actions.create(LookupAction.class).withHandler(actionPerformedEvent -> {
-                GoodsSearch goodsSearch = screenBuilders.lookup(Goods.class, this)
-                        .withField(pickerField)
-                        .withScreenClass(GoodsSearch.class) // specific lookup screen
-                        .withLaunchMode(OpenMode.DIALOG)    // open as modal dialog
-                        .build();
-                goodsSearch.show();
-            }));
-            pickerField.addAction(actions.create(OpenAction.class));
-            pickerField.addAction(actions.create(ClearAction.class));
-            return pickerField;
-        });
-    }
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<StockMovement> event) {
@@ -116,6 +81,8 @@ public class StockMovementEdit extends StandardEditor<StockMovement> {
         StockRecord stockRecord = event.getItem();
         Double price =  (Double)event.getField("price").getValue();
         Double quantity = (Double)event.getField("quantity").getValue();
+        price = (price == null)? 0 : price;
+        quantity = (quantity == null) ? 0 : quantity;
         stockRecord.setTotal(price * quantity);
         stockRecord.setStockMovement(stockMovement);
     }
@@ -123,11 +90,13 @@ public class StockMovementEdit extends StandardEditor<StockMovement> {
     @Subscribe("stockRecords_Table")
     public void onStockRecords_TableEditorClose(DataGrid.EditorCloseEvent<? extends StockRecord> event) {
         StockRecord stockRecord = event.getItem();
+        execAction = (execAction == null) ? "edit" : execAction;
         if (execAction.equals("create")) {
             recordsDC.getMutableItems().remove(stockRecord);
             getScreenData().getDataContext().remove(stockRecord);
 
         }
+        execAction = null;
     }
 
     @Subscribe
