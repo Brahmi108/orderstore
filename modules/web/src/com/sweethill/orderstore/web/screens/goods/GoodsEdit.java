@@ -2,16 +2,12 @@ package com.sweethill.orderstore.web.screens.goods;
 
 import com.haulmont.cuba.core.global.Metadata;
 import com.haulmont.cuba.gui.Notifications;
-import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
-import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.*;
 import com.sweethill.orderstore.service.OrderStoreService;
-import com.sweethill.orderstore.web.screens.goodsgroups.GoodsGroupsBrowse;
-import com.sweethill.orderstore.web.screens.units.UnitsSearch;
 
 import javax.inject.Inject;
 
@@ -20,12 +16,6 @@ import javax.inject.Inject;
 @EditedEntityContainer("goodsDc")
 @LoadDataBeforeShow
 public class GoodsEdit extends StandardEditor<Goods> {
-    @Inject
-    private PickerField<Units> unitField;
-    @Inject
-    private ScreenBuilders screenBuilders;
-    @Inject
-    private PickerField<GoodsGroups> groupField;
     @Inject
     private OrderStoreService orderStoreService;
     @Inject
@@ -47,26 +37,6 @@ public class GoodsEdit extends StandardEditor<Goods> {
     @Subscribe
     public void onInitEntity(InitEntityEvent<Goods> event) {
         event.getEntity().setOwner(orderStoreService.getCurrentUserOwner());
-    }
-
-    @Subscribe("unitField.lookup")
-    public void onUnitFieldLookup(Action.ActionPerformedEvent event) {
-        UnitsSearch browse = screenBuilders.lookup(Units.class, this)
-                .withField(unitField)
-                .withScreenClass(UnitsSearch.class) // specific lookup screen
-                .withLaunchMode(OpenMode.DIALOG)    // open as modal dialog
-                .build();
-        browse.show();
-    }
-
-    @Subscribe("groupField.lookup")
-    public void onGroupFieldLookup(Action.ActionPerformedEvent event) {
-        GoodsGroupsBrowse browse = screenBuilders.lookup(GoodsGroups.class, this)
-                .withField(groupField)
-                .withScreenClass(GoodsGroupsBrowse.class) // specific lookup screen
-                .withLaunchMode(OpenMode.DIALOG)    // open as modal dialog
-                .build();
-        browse.show();
     }
 
     @Subscribe("name_optionsTable.create")
@@ -142,17 +112,21 @@ public class GoodsEdit extends StandardEditor<Goods> {
     @Subscribe("name_optionsTable")
     public void onName_optionsTableEditorClose(DataGrid.EditorCloseEvent event) {
         GoodNameOption goodNameOption = (GoodNameOption) event.getItem();
+        execAction = (execAction == null) ? "edit" : execAction;
         if (execAction.equals("create")) {
             name_optionsDC.getMutableItems().remove(goodNameOption);
             getScreenData().getDataContext().remove(goodNameOption);
         }
+        execAction = null;
     }
     @Subscribe("costsTable")
     public void onCostsTableEditorClose(DataGrid.EditorCloseEvent event) {
         Cost cost = (Cost) event.getItem();
+        execAction = (execAction == null) ? "edit" : execAction;
         if (execAction.equals("create")) {
             costsDC.getMutableItems().remove(cost);
             getScreenData().getDataContext().remove(cost);
         }
+        execAction = null;
     }
 }

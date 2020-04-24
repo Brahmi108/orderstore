@@ -82,9 +82,11 @@ public class StockScreen extends Screen {
     @Subscribe("stocksDataGrid")
     public void onStocksDataGridEditorClose(DataGrid.EditorCloseEvent event) {
         Stock stock = (Stock) event.getItem();
+        execAction = (execAction == null) ? "edit" : execAction;
         if ( execAction.equals("create") ) {
             stocksDc.getMutableItems().remove(stock);
             getScreenData().getDataContext().remove(stock);
         }
+        execAction = null;
     }
 }

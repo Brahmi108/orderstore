@@ -82,9 +82,11 @@ public class GoodsgroupsScreen extends Screen {
     @Subscribe("goodsGroupsDataGrid")
     public void onGoodsGroupsDataGridEditorClose(DataGrid.EditorCloseEvent event) {
         GoodsGroups goodsGroups = (GoodsGroups) event.getItem();
+        execAction = (execAction == null) ? "edit" : execAction;
         if ( execAction.equals("create") ) {
             goodsGroupsDc.getMutableItems().remove(goodsGroups);
             getScreenData().getDataContext().remove(goodsGroups);
         }
+        execAction = null;
     }
 }

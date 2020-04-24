@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="productSpecificationsTable"
+        messagesPack="com.sweethill.orderstore.web.screens.productspecification">
+    <data readOnly="true">
+        <collection id="productSpecificationsDc"
+                    class="com.sweethill.orderstore.entity.production.management.ProductSpecification"
+                    view="productSpecification-view">
+            <loader id="productSpecificationsDl">
+                <query>
+                    <![CDATA[select e from orderstore_ProductSpecification e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="100%"/>
+    <layout expand="productSpecificationsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="productSpecificationsTable"
+                dataLoader="productSpecificationsDl">
+            <properties include="(name)|(product)|(quantity)|(unit)"/>
+        </filter>
+        <dataGrid id="productSpecificationsTable"
+                  width="100%"
+                  dataContainer="productSpecificationsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column property="name" id="name" caption="msg://specificationName"/>
+                <column property="product.name" id="product" caption="msg://productName"/>
+                <column property="quantity" id="quantity"/>
+                <column property="unit.shortName" id="unit" caption="msg://unitName"/>
+                <column property="active" id="active"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="productSpecificationsTable.create"/>
+                <button id="editBtn" action="productSpecificationsTable.edit"/>
+                <button id="removeBtn" action="productSpecificationsTable.remove"/>
+            </buttonsPanel>
+        </dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

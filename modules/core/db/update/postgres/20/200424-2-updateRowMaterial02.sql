@@ -1,0 +1,1 @@
+alter table ORDERSTORE_ROW_MATERIAL add constraint FK_ORDERSTORE_ROW_MATERIAL_ON_GOOD foreign key (GOOD_ID) references ORDERSTORE_GOODS(ID);
