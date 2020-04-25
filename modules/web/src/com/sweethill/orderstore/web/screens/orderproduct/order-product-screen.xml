@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="orderProductsTable"
+        messagesPack="com.sweethill.orderstore.web.screens.orderproduct">
+    <data readOnly="true">
+        <collection id="orderProductsDc"
+                    class="com.sweethill.orderstore.entity.production.management.OrderProduct"
+                    view="orderProduct-view">
+            <loader id="orderProductsDl">
+                <query>
+                    <![CDATA[select e from orderstore_OrderProduct e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="orderProductsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="orderProductsTable"
+                dataLoader="orderProductsDl">
+            <properties include=".*"/>
+        </filter>
+        
+<dataGrid id="orderProductsTable"
+        width="100%"
+        dataContainer="orderProductsDc">
+    <actions>
+        <action id="create" type="create"/>
+    
+        <action id="edit" type="edit"/>
+    
+        <action id="remove" type="remove"/>
+    
+    </actions>
+    <columns>
+        <column  property="orderNum"  id="orderNum"/>
+    
+        <column  property="orderDate"  id="orderDate"/>
+    
+        <column  property="orderNote"  id="orderNote"/>
+    
+        <column  property="readyDate"  id="readyDate"/>
+    
+        <column  property="owner"  id="owner"/>
+    
+    </columns>
+    <buttonsPanel id="buttonsPanel"
+                  alwaysVisible="true">
+        
+            <button id="createBtn" action="orderProductsTable.create"/>                
+        
+            <button id="editBtn" action="orderProductsTable.edit"/>                
+        
+            <button id="removeBtn" action="orderProductsTable.remove"/>                
+        
+    </buttonsPanel>
+</dataGrid>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>                
+</window>

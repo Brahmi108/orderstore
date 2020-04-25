@@ -1,0 +1,1 @@
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM drop column STOCK_PRODUCTR_ID__U82346 cascade ;
