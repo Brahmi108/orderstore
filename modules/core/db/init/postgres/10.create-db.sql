@@ -203,3 +203,58 @@ create table ORDERSTORE_PRODUCT_SPECIFICATION (
     primary key (ID)
 )^
 -- end ORDERSTORE_PRODUCT_SPECIFICATION
+-- begin ORDERSTORE_ORDER_PRODUCT_MATERIAL
+create table ORDERSTORE_ORDER_PRODUCT_MATERIAL (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    GOOD_ID uuid not null,
+    QUANTITY double precision not null,
+    UNIT_ID uuid,
+    ORDER_PRODUCT_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ORDER_PRODUCT_MATERIAL
+-- begin ORDERSTORE_ORDER_PRODUCT_ITEM
+create table ORDERSTORE_ORDER_PRODUCT_ITEM (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    STOCK_PRODUCT_ID uuid not null,
+    PRODUCT_ID uuid not null,
+    QUANTITY double precision not null,
+    UNIT_ID uuid not null,
+    SPECIFICATION_ID uuid,
+    STOCK_MATERIALS_ID uuid,
+    ORDER_PRODUCT_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ORDER_PRODUCT_ITEM
+-- begin ORDERSTORE_ORDER_PRODUCT
+create table ORDERSTORE_ORDER_PRODUCT (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NUM varchar(100) not null,
+    ORDER_DATE date not null,
+    ORDER_NOTE varchar(2000),
+    READY_DATE date,
+    OWNER_ID uuid not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ORDER_PRODUCT

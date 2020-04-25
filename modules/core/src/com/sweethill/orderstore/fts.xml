@@ -40,5 +40,14 @@
         <entity class="com.sweethill.orderstore.entity.production.management.RowMaterial">
             <include re=".*"/>
         </entity>
+        <entity class="com.sweethill.orderstore.entity.production.management.OrderProduct">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.production.management.OrderProductItem">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.production.management.OrderProductMaterial">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

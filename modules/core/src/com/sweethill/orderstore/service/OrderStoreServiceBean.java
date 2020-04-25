@@ -35,7 +35,7 @@ public class OrderStoreServiceBean implements OrderStoreService {
         return owner;
     }
     /*
-     * Отметить выбранный тип уены по умолчанию
+     * Отметить выбранный тип цены по умолчанию
      */
     public void setDefaultCostType(CostType currentCostType)
     {
@@ -105,12 +105,8 @@ public class OrderStoreServiceBean implements OrderStoreService {
         return dataManager.loadList(lc);
     }
 
-    /*
-     * Получить склад по умолчанию
-     */
-    public Stock getDefaultStock()
+    private Stock getDefaultStock_(Owner owner)
     {
-        Owner owner = getCurrentUserOwner();
         Stock stock = null;
         if (owner == null) return null;
         try (final Transaction transaction = persistence.createTransaction()) {
@@ -121,5 +117,51 @@ public class OrderStoreServiceBean implements OrderStoreService {
             transaction.commit();
         }
         return stock;
+    }
+
+    /*
+     * Получить склад по умолчанию
+     */
+    public Stock getDefaultStock()
+    {
+        return getDefaultStock_(getCurrentUserOwner());
+    }
+
+    /*
+    * Получить итог движения по складу
+     */
+    private Double getTotalMovement(Goods good, Date date, Stock stock, boolean income)
+    {
+        Double v_nResult = 0.0;
+        if (good == null | date == null | stock == null) return null;
+        try (final Transaction transaction = persistence.createTransaction()) {
+            final EntityManager entityManager = persistence.getEntityManager();
+            final Query query = entityManager.createQuery(
+                    "select sum (r.quantity) " +
+                                "from orderstore_StockMovement x, orderstore_StockRecord r " +
+                    "where r.stockMovement = x "+
+                    "and r.good = :good "+
+                    "and x.stock = :stock " +
+                    "and x.income = :income " +
+                    "and x.docDate <= :date");
+            query.setParameter("good", good);
+            query.setParameter("stock", stock);
+            query.setParameter("income", income);
+            query.setParameter("date", date);
+            v_nResult = (Double) query.getFirstResult();
+            transaction.commit();
+        }
+        return v_nResult;
+    }
+    /*
+     * Получить остаток на складе
+     */
+    public Double getStockRest(Goods good, Date date, Stock stock)
+    {
+        Double incQuantity = getTotalMovement(good, date, stock, true); // поступление на склад
+        Double outQuantity = getTotalMovement(good, date, stock, false); // списмание со склада
+        incQuantity = (incQuantity == null) ? 0 : incQuantity;
+        outQuantity = (outQuantity == null) ? 0 : outQuantity;
+        return incQuantity - outQuantity;
     }
 }

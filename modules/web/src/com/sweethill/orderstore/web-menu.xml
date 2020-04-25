@@ -12,6 +12,7 @@
     </menu>
     <menu id="Production" insertBefore="reports" icon="icons/wf-design-scripts.png">
         <item screen="orderstore_ProductSpecification.screen" id="ProductSpecificationScreenm"/>
+        <item screen="orderstore_OrderProduct.screen"/>
     </menu>
     <menu id="application-orderstore" insertBefore="administration"/>
     <item screen="orderstore_Owner.browse" insertBefore="sec$User.browse"/>
