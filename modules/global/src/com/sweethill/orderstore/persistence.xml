@@ -15,5 +15,8 @@
         <class>com.sweethill.orderstore.entity.StockRecord</class>
         <class>com.sweethill.orderstore.entity.production.management.ProductSpecification</class>
         <class>com.sweethill.orderstore.entity.production.management.RowMaterial</class>
+        <class>com.sweethill.orderstore.entity.production.management.OrderProduct</class>
+        <class>com.sweethill.orderstore.entity.production.management.OrderProductItem</class>
+        <class>com.sweethill.orderstore.entity.production.management.OrderProductMaterial</class>
     </persistence-unit>
 </persistence>

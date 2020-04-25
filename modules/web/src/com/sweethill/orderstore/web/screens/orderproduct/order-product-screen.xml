@@ -11,6 +11,13 @@
             <loader id="orderProductsDl">
                 <query>
                     <![CDATA[select e from orderstore_OrderProduct e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -22,46 +29,32 @@
         <filter id="filter"
                 applyTo="orderProductsTable"
                 dataLoader="orderProductsDl">
-            <properties include=".*"/>
+            <properties include="(orderNum)|(orderDate)|(orderNote)|(readyDate)"/>
         </filter>
-        
-<dataGrid id="orderProductsTable"
-        width="100%"
-        dataContainer="orderProductsDc">
-    <actions>
-        <action id="create" type="create"/>
-    
-        <action id="edit" type="edit"/>
-    
-        <action id="remove" type="remove"/>
-    
-    </actions>
-    <columns>
-        <column  property="orderNum"  id="orderNum"/>
-    
-        <column  property="orderDate"  id="orderDate"/>
-    
-        <column  property="orderNote"  id="orderNote"/>
-    
-        <column  property="readyDate"  id="readyDate"/>
-    
-        <column  property="owner"  id="owner"/>
-    
-    </columns>
-    <buttonsPanel id="buttonsPanel"
-                  alwaysVisible="true">
-        
-            <button id="createBtn" action="orderProductsTable.create"/>                
-        
-            <button id="editBtn" action="orderProductsTable.edit"/>                
-        
-            <button id="removeBtn" action="orderProductsTable.remove"/>                
-        
-    </buttonsPanel>
-</dataGrid>
+        <dataGrid id="orderProductsTable"
+                  width="100%"
+                  dataContainer="orderProductsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column property="orderNum" id="orderNum"/>
+                <column property="orderDate" id="orderDate"/>
+                <column property="orderNote" id="orderNote"/>
+                <column property="readyDate" id="readyDate"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="orderProductsTable.create"/>
+                <button id="editBtn" action="orderProductsTable.edit"/>
+                <button id="removeBtn" action="orderProductsTable.remove"/>
+            </buttonsPanel>
+        </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>
         </hbox>
-    </layout>                
+    </layout>
 </window>

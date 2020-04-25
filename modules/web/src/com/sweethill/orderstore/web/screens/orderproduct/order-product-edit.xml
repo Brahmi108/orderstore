@@ -5,115 +5,71 @@
         messagesPack="com.sweethill.orderstore.web.screens.orderproduct">
     <data>
         <instance id="orderProductDc"
-                    class="com.sweethill.orderstore.entity.production.management.OrderProduct"
-                    view="orderProduct-view">
+                  class="com.sweethill.orderstore.entity.production.management.OrderProduct"
+                  view="orderProduct-view">
             <loader/>
-        
             <collection id="itemsDc" property="items"/>
-        
             <collection id="materialsDc" property="materials"/>
         </instance>
-        
     </data>
-    
-    <dialogMode height="600"
-                width="800"/>
-<layout expand="editActions" spacing="true">
-    
-        
-
-<form id="form" dataContainer="orderProductDc">
-<column width="250px">
-	
-	<textField id="orderNumField" property="orderNum"/>
-	
-	<dateField id="orderDateField" property="orderDate"/>
-	
-	<textField id="orderNoteField" property="orderNote"/>
-	
-	<dateField id="readyDateField" property="readyDate"/>
-	
-	<pickerField id="ownerField" property="owner">
-		<actions><action id="lookup" type="picker_lookup"/><action id="clear" type="picker_clear"/></actions>
-	</pickerField>
-	
-</column>
-</form>
-
-        
-            
-<groupBox id="itemsBox" caption="msg://com.sweethill.orderstore.entity.production.management/OrderProduct.items">
-<table id="itemsTable" dataContainer="itemsDc" width="100%" height="200px">
-    
-    <actions>
-        <action id="create" type="create"/>
-        <action id="edit" type="edit"/>
-        <action id="remove" type="remove"/>
-    </actions>
-    
-    <columns>
-        
-            <column id="product"/>
-        
-            <column id="stockProduct"/>
-        
-            <column id="quantity"/>
-        
-            <column id="unit"/>
-        
-            <column id="specification"/>
-        
-            <column id="stockMaterials"/>
-        
-            <column id="orderProduct"/>
-        
-    </columns>
-    
-    <buttonsPanel>
-        <button action="itemsTable.create"/>
-        
-        <button action="itemsTable.edit"/>
-        
-        <button action="itemsTable.remove"/>
-    </buttonsPanel>
-    
-</table>
-</groupBox>
-        
-            
-<groupBox id="materialsBox" caption="msg://com.sweethill.orderstore.entity.production.management/OrderProduct.materials">
-<table id="materialsTable" dataContainer="materialsDc" width="100%" height="200px">
-    
-    <actions>
-        <action id="create" type="create"/>
-        <action id="edit" type="edit"/>
-        <action id="remove" type="remove"/>
-    </actions>
-    
-    <columns>
-        
-            <column id="good"/>
-        
-            <column id="quantity"/>
-        
-            <column id="unit"/>
-        
-            <column id="orderProduct"/>
-        
-    </columns>
-    
-    <buttonsPanel>
-        <button action="materialsTable.create"/>
-        
-        <button action="materialsTable.edit"/>
-        
-        <button action="materialsTable.remove"/>
-    </buttonsPanel>
-    
-</table>
-</groupBox>
-        
-        
+    <layout expand="editActions" spacing="true" width="100%">
+        <form id="form" dataContainer="orderProductDc" width="100%">
+            <column width="100%">
+                <textField id="orderNumField" property="orderNum" width="250"/>
+                <dateField id="orderDateField" property="orderDate" width="250"/>
+                <textField id="orderNoteField" property="orderNote" width="100%"/>
+                <dateField id="readyDateField" property="readyDate" width="250"/>
+                <groupBox id="itemsBox" caption="msg://groupBoxCaption">
+                    <tabSheet id="tabSheet" width="100%">
+                        <tab caption="msg://com.sweethill.orderstore.entity.production.management/OrderProduct.items"
+                             margin="true" spacing="true" id="tab_OrderProduct">
+                            <dataGrid id="itemsTable" dataContainer="itemsDc" width="100%" height="400px"
+                                      editorEnabled="true">
+                                <actions>
+                                    <action id="create" type="create"/>
+                                    <action id="edit" type="edit"/>
+                                    <action id="remove" type="remove"/>
+                                </actions>
+                                <columns>
+                                    <column id="product" property="product"/>
+                                    <column id="stockProduct" property="stockProduct"/>
+                                    <column id="quantity" property="quantity"/>
+                                    <column id="unit" property="unit"/>
+                                    <column id="specification" property="specification"/>
+                                    <column id="stockMaterials" property="stockMaterials"/>
+                                </columns>
+                                <buttonsPanel>
+                                    <button action="itemsTable.create"/>
+                                    <button action="itemsTable.edit"/>
+                                    <button action="itemsTable.remove"/>
+                                </buttonsPanel>
+                            </dataGrid>
+                        </tab>
+                        <tab caption="msg://com.sweethill.orderstore.entity.production.management/OrderProduct.materials"
+                            margin="true,false,false,false" spacing="true" id="tab_GoodCosts">
+                            <dataGrid id="materialsTable" dataContainer="materialsDc" width="100%" height="400"
+                                      editorEnabled="true">
+                                <actions>
+                                    <action id="create" type="create"/>
+                                    <action id="edit" type="edit"/>
+                                    <action id="remove" type="remove"/>
+                                </actions>
+                                <columns>
+                                    <column id="good" property="good"/>
+                                    <column id="quantity" property="quantity"/>
+                                    <column id="unit" property="unit"/>
+                                </columns>
+                                <buttonsPanel>
+                                    <button action="materialsTable.create"/>
+                                    <button action="materialsTable.edit"/>
+                                    <button action="materialsTable.remove"/>
+                                </buttonsPanel>
+                            </dataGrid>
+                        </tab>
+                    </tabSheet>
+                </groupBox>
+            </column>
+        </form>
         <hbox id="editActions" spacing="true">
             <button action="windowCommitAndClose"/>
             <button action="windowClose"/>

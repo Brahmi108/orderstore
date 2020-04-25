@@ -13,4 +13,5 @@ public interface OrderStoreService {
     Double getStockMovementCost(StockMovement stockMovement);
     List<StockRecord> loadStockRecords(StockMovement stockMovement);
     Stock getDefaultStock();
+    Double getStockRest(Goods good, Date date, Stock stock);
 }

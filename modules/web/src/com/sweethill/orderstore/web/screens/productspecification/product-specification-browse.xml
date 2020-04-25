@@ -10,7 +10,14 @@
                     view="productSpecification-view">
             <loader id="productSpecificationsDl">
                 <query>
-                    <![CDATA[select e from orderstore_ProductSpecification e]]>
+                    <![CDATA[select e from orderstore_ProductSpecification e where e.active = true]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -19,36 +26,24 @@
                 width="800"/>
     <layout expand="productSpecificationsTable"
             spacing="true">
-        
-<dataGrid id="productSpecificationsTable"
-        width="100%"
-        dataContainer="productSpecificationsDc">
-    <actions>
-    </actions>
-    <columns>
-        <column  property="name"  id="name"/>
-    
-        <column  property="product"  id="product"/>
-    
-        <column  property="quantity"  id="quantity"/>
-    
-        <column  property="unit"  id="unit"/>
-    
-        <column  property="active"  id="active"/>
-    
-        <column  property="owner"  id="owner"/>
-    
-        <column  property="instruction"  id="instruction"/>
-    
-    </columns>
-    <buttonsPanel id="buttonsPanel"
-                  alwaysVisible="true">
-        
-    </buttonsPanel>
-</dataGrid>
+        <dataGrid id="productSpecificationsTable"
+                  width="100%"
+                  dataContainer="productSpecificationsDc">
+            <actions>
+            </actions>
+            <columns>
+                <column property="name" id="name"/>
+                <column property="product" id="product"/>
+                <column property="quantity" id="quantity"/>
+                <column property="unit" id="unit"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </dataGrid>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>
         </hbox>
-    </layout>                
+    </layout>
 </window>
