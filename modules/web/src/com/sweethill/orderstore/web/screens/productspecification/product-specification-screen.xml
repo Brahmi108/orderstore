@@ -40,11 +40,13 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column property="name" id="name" caption="msg://specificationName"/>
-                <column property="product.name" id="product" caption="msg://productName"/>
+                <column property="specNumber" id="specNumber"/>
+                <column property="specDate" id="specDate"/>
+                <column property="product" id="product"/>
                 <column property="quantity" id="quantity"/>
                 <column property="unit.shortName" id="unit" caption="msg://unitName"/>
                 <column property="active" id="active"/>
+                <column property="notes" id="notes"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">

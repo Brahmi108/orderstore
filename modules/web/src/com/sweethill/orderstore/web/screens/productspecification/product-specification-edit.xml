@@ -11,12 +11,11 @@
             <collection id="materialsDC" property="materials"/>
         </instance>
     </data>
-    <dialogMode height="600"
-                width="1159"/>
-    <layout expand="editActions" spacing="true" width="1150">
+    <layout expand="editActions" spacing="true" width="100%">
         <form id="form" dataContainer="productSpecificationDc" width="100%">
             <column width="100%" id="Column1">
-                <textField id="nameField" property="name" width="400"/>
+                <textField id="specNumberField" property="specNumber" width="400"/>
+                <dateField id="specDateField" property="specDate" width="300"/>
                 <checkBox id="activeField" property="active"/>
                 <pickerField id="groupField" property="product" width="400">
                     <actions>
@@ -31,7 +30,8 @@
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
-                <groupBox id="name_optionsBox" width="100%" caption="msg://groupBoxCaption">
+                <textField id="notesField" property="notes" width="800"/>
+                <groupBox id="name_optionsBox" width="100%" css="border-style: none">
                     <tabSheet id="tabSheet" width="100%">
                         <tab caption="msg://Tab_Materials" margin="true" spacing="true" id="tab_Materials">
                             <dataGrid id="materialsTable"

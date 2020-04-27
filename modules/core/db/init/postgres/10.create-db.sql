@@ -192,13 +192,15 @@ create table ORDERSTORE_PRODUCT_SPECIFICATION (
     UPDATED_BY varchar(50),
     VERSION integer not null,
     --
-    NAME varchar(255) not null,
+    SPEC_NUMBER varchar(50) not null,
+    SPEC_DATE date not null,
     PRODUCT_ID uuid not null,
     QUANTITY double precision not null,
     UNIT_ID uuid not null,
     ACTIVE boolean,
     OWNER_ID uuid not null,
     INSTRUCTION text,
+    COMMENT_ varchar(1000),
     --
     primary key (ID)
 )^
