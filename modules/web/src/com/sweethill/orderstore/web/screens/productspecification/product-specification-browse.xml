@@ -32,10 +32,12 @@
             <actions>
             </actions>
             <columns>
-                <column property="name" id="name"/>
+                <column property="specNumber" id="specNumber"/>
+                <column property="specDate" id="specDate"/>
                 <column property="product" id="product"/>
                 <column property="quantity" id="quantity"/>
                 <column property="unit" id="unit"/>
+                <column property="notes" id="notes"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">

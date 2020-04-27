@@ -78,7 +78,7 @@
             <property name="quantity"/>
             <property name="unit" view="_minimal"/>
             <property name="productSpecification" view="_minimal">
-                <property name="name"/>
+                <property name="specNumber"/>
             </property>
         </property>
         <property name="owner" view="_minimal"/>
@@ -121,7 +121,7 @@
             <property name="shortName"/>
         </property>
         <property name="specification" view="_minimal">
-            <property name="name"/>
+            <property name="specNumber"/>
         </property>
         <property name="stockMaterials" view="_minimal">
             <property name="owner" view="_minimal"/>

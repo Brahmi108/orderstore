@@ -22,8 +22,13 @@ public class ProductSpecification extends BaseUuidEntity implements Creatable, U
     private static final long serialVersionUID = 3319888996703561794L;
 
     @NotNull
-    @Column(name = "NAME", nullable = false)
-    protected String name;
+    @Column(name = "SPEC_NUMBER", nullable = false, length = 50)
+    protected String specNumber;
+
+    @Temporal(TemporalType.DATE)
+    @NotNull
+    @Column(name = "SPEC_DATE", nullable = false)
+    protected Date specDate;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -55,6 +60,9 @@ public class ProductSpecification extends BaseUuidEntity implements Creatable, U
     @Column(name = "INSTRUCTION")
     protected String instruction;
 
+    @Column(name = "COMMENT_", length = 1000)
+    protected String notes;
+
     @Column(name = "CREATE_TS")
     protected Date createTs;
 
@@ -71,12 +79,28 @@ public class ProductSpecification extends BaseUuidEntity implements Creatable, U
     @Column(name = "VERSION", nullable = false)
     protected Integer version;
 
-    public String getName() {
-        return name;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public Date getSpecDate() {
+        return specDate;
+    }
+
+    public void setSpecDate(Date specDate) {
+        this.specDate = specDate;
+    }
+
+    public String getSpecNumber() {
+        return specNumber;
+    }
+
+    public void setSpecNumber(String specNumber) {
+        this.specNumber = specNumber;
     }
 
     public String getInstruction() {
