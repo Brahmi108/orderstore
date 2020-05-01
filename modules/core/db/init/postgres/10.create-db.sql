@@ -176,6 +176,7 @@ create table ORDERSTORE_ROW_MATERIAL (
     VERSION integer not null,
     --
     GOOD_ID uuid not null,
+    NOTE varchar(1000),
     QUANTITY double precision not null,
     UNIT_ID uuid not null,
     PRODUCT_SPECIFICATION_ID uuid,
@@ -215,6 +216,7 @@ create table ORDERSTORE_ORDER_PRODUCT_MATERIAL (
     VERSION integer not null,
     --
     GOOD_ID uuid not null,
+    NOTE varchar(1000),
     QUANTITY double precision not null,
     UNIT_ID uuid,
     ORDER_PRODUCT_ID uuid,
@@ -232,6 +234,7 @@ create table ORDERSTORE_ORDER_PRODUCT_ITEM (
     VERSION integer not null,
     --
     STOCK_PRODUCT_ID uuid not null,
+    NOTE varchar(1000),
     PRODUCT_ID uuid not null,
     QUANTITY double precision not null,
     UNIT_ID uuid not null,

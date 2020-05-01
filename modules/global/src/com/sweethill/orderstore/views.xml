@@ -75,6 +75,7 @@
         </property>
         <property name="materials" view="_minimal">
             <property name="good" view="_minimal"/>
+            <property name="note"/>
             <property name="quantity"/>
             <property name="unit" view="_minimal"/>
             <property name="productSpecification" view="_minimal">
@@ -91,12 +92,14 @@
         <property name="productSpecification" view="_minimal">
             <property name="active"/>
             <property name="materials" view="_minimal"/>
+            <property name="notes"/>
         </property>
     </view>
     <view entity="orderstore_OrderProduct" name="orderProduct-view" extends="_local">
         <property name="owner" view="_minimal"/>
         <property name="items" view="_minimal">
             <property name="stockProduct" view="_minimal"/>
+            <property name="note"/>
             <property name="quantity"/>
             <property name="unit" view="_minimal"/>
             <property name="specification" view="_minimal"/>
@@ -104,6 +107,7 @@
             <property name="orderProduct" view="_minimal"/>
         </property>
         <property name="materials" view="_minimal">
+            <property name="note"/>
             <property name="quantity"/>
             <property name="unit" view="_minimal"/>
             <property name="orderProduct" view="_minimal"/>

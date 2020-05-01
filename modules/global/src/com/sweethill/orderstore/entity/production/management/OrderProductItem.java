@@ -26,6 +26,9 @@ public class OrderProductItem extends BaseUuidEntity implements Versioned, Updat
     @JoinColumn(name = "STOCK_PRODUCT_ID")
     protected Stock stockProduct;
 
+    @Column(name = "NOTE", length = 1000)
+    protected String note;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PRODUCT_ID")
@@ -68,6 +71,14 @@ public class OrderProductItem extends BaseUuidEntity implements Versioned, Updat
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_PRODUCT_ID")
     protected OrderProduct orderProduct;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public OrderProduct getOrderProduct() {
         return orderProduct;

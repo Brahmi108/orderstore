@@ -25,6 +25,9 @@ public class OrderProductMaterial extends BaseUuidEntity implements Versioned, U
     @JoinColumn(name = "GOOD_ID")
     protected Goods good;
 
+    @Column(name = "NOTE", length = 1000)
+    protected String note;
+
     @NotNull
     @Column(name = "QUANTITY", nullable = false)
     protected Double quantity;
@@ -48,10 +51,19 @@ public class OrderProductMaterial extends BaseUuidEntity implements Versioned, U
     @Version
     @Column(name = "VERSION", nullable = false)
     protected Integer version;
+
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_PRODUCT_ID")
     protected OrderProduct orderProduct;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public OrderProduct getOrderProduct() {
         return orderProduct;
