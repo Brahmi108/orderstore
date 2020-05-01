@@ -23,6 +23,9 @@ public class RowMaterial extends BaseUuidEntity implements Versioned, Updatable,
     @JoinColumn(name = "GOOD_ID")
     protected Goods good;
 
+    @Column(name = "NOTE", length = 1000)
+    protected String note;
+
     @NotNull
     @Column(name = "QUANTITY", nullable = false)
     protected Double quantity;
@@ -52,6 +55,14 @@ public class RowMaterial extends BaseUuidEntity implements Versioned, Updatable,
     @Version
     @Column(name = "VERSION", nullable = false)
     protected Integer version;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     @Override
     public Integer getVersion() {

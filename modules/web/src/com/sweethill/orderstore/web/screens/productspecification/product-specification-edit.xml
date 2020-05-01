@@ -11,28 +11,28 @@
             <collection id="materialsDC" property="materials"/>
         </instance>
     </data>
-    <layout expand="editActions" spacing="true" width="100%">
+    <layout expand="editActions" spacing="true" width="100%" margin="false,false,true,false">
         <form id="form" dataContainer="productSpecificationDc" width="100%">
             <column width="100%" id="Column1">
                 <textField id="specNumberField" property="specNumber" width="400"/>
                 <dateField id="specDateField" property="specDate" width="300"/>
                 <checkBox id="activeField" property="active"/>
-                <pickerField id="groupField" property="product" width="400">
+                <pickerField id="productField" property="product" width="400">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
                 <textField id="quantityField" property="quantity"  width="200"/>
-                <pickerField id="unitField" property="unit"  width="200">
+                <pickerField id="unitField" property="unit"  width="200" editable="false">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
                         <action id="clear" type="picker_clear"/>
                     </actions>
                 </pickerField>
                 <textField id="notesField" property="notes" width="800"/>
-                <groupBox id="name_optionsBox" width="100%" css="border-style: none">
-                    <tabSheet id="tabSheet" width="100%">
+                <groupBox id="name_optionsBox" width="100%" stylename="borderless" showAsPanel="true" expand="tabSheet">
+                    <tabSheet id="tabSheet" width="100%" stylename="framed compact-tabbar">
                         <tab caption="msg://Tab_Materials" margin="true" spacing="true" id="tab_Materials">
                             <dataGrid id="materialsTable"
                                       editorEnabled="true"
@@ -47,11 +47,12 @@
                                     <column property="good" width="500"/>
                                     <column property="quantity" width="300"/>
                                     <column property="unit" width="300"/>
+                                    <column property="note" width="400"/>
                                 </columns>
                                 <rowsCount/>
                                 <buttonsPanel id="buttonsPanel"
                                               alwaysVisible="true">
-                                    <button id="createBtn"
+                                    <button id="createBtn" caption="mainMsg://ButtonCreate"
                                             action="materialsTable.create"/>
                                     <button id="editBtn"
                                             action="materialsTable.edit"/>
@@ -68,8 +69,8 @@
                 </groupBox>
             </column>
         </form>
-        <hbox id="editActions" spacing="true">
-            <button action="windowCommitAndClose"/>
+        <hbox id="editActions" spacing="true" margin="true">
+            <button action="windowCommitAndClose" caption="mainMsg://ButtonOK"/>
             <button action="windowClose"/>
         </hbox>
     </layout>
