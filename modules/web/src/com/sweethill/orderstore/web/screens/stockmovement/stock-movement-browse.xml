@@ -47,7 +47,7 @@
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="stockMovementsTable.create"/>
+                <button id="createBtn" action="stockMovementsTable.create" caption="mainMsg://ButtonCreate"/>
                 <button id="editBtn" action="stockMovementsTable.edit"/>
                 <button id="removeBtn" action="stockMovementsTable.remove"/>
             </buttonsPanel>

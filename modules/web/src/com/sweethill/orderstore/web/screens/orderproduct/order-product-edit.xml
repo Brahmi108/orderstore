@@ -19,9 +19,28 @@
                 <dateField id="orderDateField" property="orderDate" width="250"/>
                 <textField id="orderNoteField" property="orderNote" width="100%"/>
                 <dateField id="readyDateField" property="readyDate" width="250"/>
-                <groupBox id="itemsBox" caption="msg://groupBoxCaption">
-                    <tabSheet id="tabSheet" width="100%">
-                        <tab caption="msg://com.sweethill.orderstore.entity.production.management/OrderProduct.items"
+                <pickerField id="stockProductField" property="stockProduct" width="300">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <pickerField id="stockMaterialsField" property="stockMaterials" width="300">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <pickerField id="statusField" property="status" width="300">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+
+                <groupBox id="itemsBox" stylename="borderless" showAsPanel="true" expand="tabSheet">
+                    <tabSheet id="tabSheet" width="100%" stylename="framed compact-tabbar">
+                        <tab caption="msg://TabProducts"
                              margin="true" spacing="true" id="tab_OrderProduct">
                             <dataGrid id="itemsTable" dataContainer="itemsDc" width="100%" height="400px"
                                       editorEnabled="true">
@@ -31,21 +50,19 @@
                                     <action id="remove" type="remove"/>
                                 </actions>
                                 <columns>
-                                    <column id="product" property="product"/>
-                                    <column id="stockProduct" property="stockProduct"/>
+                                    <column id="product" property="product" caption="msg://ProductItemCaption"/>
                                     <column id="quantity" property="quantity"/>
                                     <column id="unit" property="unit"/>
                                     <column id="specification" property="specification"/>
-                                    <column id="stockMaterials" property="stockMaterials"/>
                                 </columns>
                                 <buttonsPanel>
-                                    <button action="itemsTable.create"/>
+                                    <button action="itemsTable.create" caption="mainMsg://ButtonCreate"/>
                                     <button action="itemsTable.edit"/>
                                     <button action="itemsTable.remove"/>
                                 </buttonsPanel>
                             </dataGrid>
                         </tab>
-                        <tab caption="msg://com.sweethill.orderstore.entity.production.management/OrderProduct.materials"
+                        <tab caption="msg://TabMaterials"
                             margin="true,false,false,false" spacing="true" id="tab_GoodCosts">
                             <dataGrid id="materialsTable" dataContainer="materialsDc" width="100%" height="400"
                                       editorEnabled="true">
@@ -53,6 +70,7 @@
                                     <action id="create" type="create"/>
                                     <action id="edit" type="edit"/>
                                     <action id="remove" type="remove"/>
+                                    <action id="fill" caption="msg://fillActionCaption" shortcut="ALT-F"/>
                                 </actions>
                                 <columns>
                                     <column id="good" property="good"/>
@@ -60,9 +78,10 @@
                                     <column id="unit" property="unit"/>
                                 </columns>
                                 <buttonsPanel>
-                                    <button action="materialsTable.create"/>
+                                    <button action="materialsTable.create" caption="mainMsg://ButtonCreate"/>
                                     <button action="materialsTable.edit"/>
                                     <button action="materialsTable.remove"/>
+                                    <button action="materialsTable.fill"/>
                                 </buttonsPanel>
                             </dataGrid>
                         </tab>
@@ -71,7 +90,7 @@
             </column>
         </form>
         <hbox id="editActions" spacing="true">
-            <button action="windowCommitAndClose"/>
+            <button action="windowCommitAndClose" caption="mainMsg://ButtonOK"/>
             <button action="windowClose"/>
         </hbox>
     </layout>

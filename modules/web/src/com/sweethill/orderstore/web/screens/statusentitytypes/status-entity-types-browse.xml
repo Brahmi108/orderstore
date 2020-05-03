@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="statusEntityTypesesTable"
+        messagesPack="com.sweethill.orderstore.web.screens.statusentitytypes">
+    <data readOnly="true">
+        <collection id="statusEntityTypesesDc"
+                    class="com.sweethill.orderstore.entity.StatusEntityTypes"
+                    view="_local">
+            <loader id="statusEntityTypesesDl">
+                <query>
+                    <![CDATA[select e from orderstore_StatusEntityTypes e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="statusEntityTypesesTable"
+            spacing="true">
+        <groupTable id="statusEntityTypesesTable"
+                    width="100%"
+                    dataContainer="statusEntityTypesesDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="name"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

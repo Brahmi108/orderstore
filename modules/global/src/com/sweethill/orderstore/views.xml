@@ -98,12 +98,10 @@
     <view entity="orderstore_OrderProduct" name="orderProduct-view" extends="_local">
         <property name="owner" view="_minimal"/>
         <property name="items" view="_minimal">
-            <property name="stockProduct" view="_minimal"/>
             <property name="note"/>
             <property name="quantity"/>
             <property name="unit" view="_minimal"/>
-            <property name="specification" view="_minimal"/>
-            <property name="stockMaterials" view="_minimal"/>
+            <property name="specification" view="productSpecification-view"/>
             <property name="orderProduct" view="_minimal"/>
         </property>
         <property name="materials" view="_minimal">
@@ -112,11 +110,13 @@
             <property name="unit" view="_minimal"/>
             <property name="orderProduct" view="_minimal"/>
         </property>
+        <property name="stockProduct" view="_minimal"/>
+        <property name="stockMaterials" view="_minimal"/>
+        <property name="status" view="_minimal">
+            <property name="name"/>
+        </property>
     </view>
     <view entity="orderstore_OrderProductItem" name="orderProductItem-view" extends="_local">
-        <property name="stockProduct" view="_minimal">
-            <property name="def"/>
-        </property>
         <property name="product" view="_minimal">
             <property name="code"/>
         </property>
@@ -127,16 +127,18 @@
         <property name="specification" view="_minimal">
             <property name="specNumber"/>
         </property>
-        <property name="stockMaterials" view="_minimal">
-            <property name="owner" view="_minimal"/>
-            <property name="address"/>
-            <property name="def"/>
-        </property>
         <property name="orderProduct" view="_minimal"/>
     </view>
     <view entity="orderstore_OrderProductMaterial" name="orderProductMaterial-view" extends="_local">
         <property name="good" view="_minimal"/>
         <property name="unit" view="_minimal"/>
         <property name="orderProduct" view="_minimal"/>
+    </view>
+    <view entity="orderstore_StatusEntity" name="statusEntity-view" extends="_local">
+        <property name="owner" view="_minimal"/>
+        <property name="entityType" view="_minimal">
+            <property name="name"/>
+            <property name="entityType"/>
+        </property>
     </view>
 </views>

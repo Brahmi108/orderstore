@@ -8,7 +8,6 @@ import com.haulmont.cuba.core.entity.Versioned;
 import com.haulmont.cuba.core.entity.annotation.OnDeleteInverse;
 import com.haulmont.cuba.core.global.DeletePolicy;
 import com.sweethill.orderstore.entity.Goods;
-import com.sweethill.orderstore.entity.Stock;
 import com.sweethill.orderstore.entity.Units;
 
 import javax.persistence.*;
@@ -20,11 +19,6 @@ import java.util.Date;
 @Entity(name = "orderstore_OrderProductItem")
 public class OrderProductItem extends BaseUuidEntity implements Versioned, Updatable, Creatable {
     private static final long serialVersionUID = 886806072548633103L;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "STOCK_PRODUCT_ID")
-    protected Stock stockProduct;
 
     @Column(name = "NOTE", length = 1000)
     protected String note;
@@ -46,10 +40,6 @@ public class OrderProductItem extends BaseUuidEntity implements Versioned, Updat
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SPECIFICATION_ID")
     protected ProductSpecification specification;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "STOCK_MATERIALS_ID")
-    protected Stock stockMaterials;
 
     @Column(name = "UPDATE_TS")
     protected Date updateTs;
@@ -88,14 +78,6 @@ public class OrderProductItem extends BaseUuidEntity implements Versioned, Updat
         this.orderProduct = orderProduct;
     }
 
-    public Stock getStockMaterials() {
-        return stockMaterials;
-    }
-
-    public void setStockMaterials(Stock stockMaterials) {
-        this.stockMaterials = stockMaterials;
-    }
-
     public ProductSpecification getSpecification() {
         return specification;
     }
@@ -126,14 +108,6 @@ public class OrderProductItem extends BaseUuidEntity implements Versioned, Updat
 
     public void setProduct(Goods product) {
         this.product = product;
-    }
-
-    public Stock getStockProduct() {
-        return stockProduct;
-    }
-
-    public void setStockProduct(Stock stockProduct) {
-        this.stockProduct = stockProduct;
     }
 
     @Override

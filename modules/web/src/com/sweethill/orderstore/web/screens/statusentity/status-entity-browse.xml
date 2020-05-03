@@ -2,22 +2,23 @@
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
         caption="msg://browseCaption"
-        focusComponent="productSpecificationsTable"
-        messagesPack="com.sweethill.orderstore.web.screens.productspecification">
+        focusComponent="statusEntitiesTable"
+        messagesPack="com.sweethill.orderstore.web.screens.statusentity">
     <data readOnly="true">
-        <collection id="productSpecificationsDc"
-                    class="com.sweethill.orderstore.entity.production.management.ProductSpecification"
-                    view="productSpecification-view">
-            <loader id="productSpecificationsDl">
+        <collection id="statusEntitiesDc"
+                    class="com.sweethill.orderstore.entity.StatusEntity"
+                    view="_local">
+            <loader id="statusEntitiesDl">
                 <query>
-                    <![CDATA[select e from orderstore_ProductSpecification e where e.active = true]]>
+                    <![CDATA[select e from orderstore_StatusEntity e, orderstore_StatusEntityTypes t
+                                where t = e.entityType]]>
                     <condition>
                         <and>
                             <c:jpql>
                                 <c:where>e.owner = :owner</c:where>
                             </c:jpql>
                             <c:jpql>
-                                <c:where>(e.product = :product or :product is null)</c:where>
+                                <c:where>t.entityType = :entityType</c:where>
                             </c:jpql>
                         </and>
                     </condition>
@@ -26,21 +27,17 @@
         </collection>
     </data>
     <dialogMode height="600"
+                forceDialog="true"
                 width="800"/>
-    <layout expand="productSpecificationsTable"
+    <layout expand="statusEntitiesTable"
             spacing="true">
-        <dataGrid id="productSpecificationsTable"
+        <dataGrid id="statusEntitiesTable"
                   width="100%"
-                  dataContainer="productSpecificationsDc">
+                  dataContainer="statusEntitiesDc">
             <actions>
             </actions>
             <columns>
-                <column property="specNumber" id="specNumber"/>
-                <column property="specDate" id="specDate"/>
-                <column property="product" id="product"/>
-                <column property="quantity" id="quantity"/>
-                <column property="unit" id="unit"/>
-                <column property="notes" id="notes"/>
+                <column property="name" id="name"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">

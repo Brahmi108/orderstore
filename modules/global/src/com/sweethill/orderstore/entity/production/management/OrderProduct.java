@@ -7,6 +7,8 @@ import com.haulmont.cuba.core.entity.Creatable;
 import com.haulmont.cuba.core.entity.Updatable;
 import com.haulmont.cuba.core.entity.Versioned;
 import com.sweethill.orderstore.entity.Owner;
+import com.sweethill.orderstore.entity.StatusEntity;
+import com.sweethill.orderstore.entity.Stock;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -48,6 +50,20 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
     @OneToMany(mappedBy = "orderProduct")
     protected List<OrderProductMaterial> materials;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "STOCK_PRODUCT_ID")
+    protected Stock stockProduct;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "STOCK_MATERIALS_ID")
+    protected Stock stockMaterials;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "STATUS_ID")
+    protected StatusEntity status;
+
     @Column(name = "UPDATE_TS")
     protected Date updateTs;
 
@@ -78,6 +94,22 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
 
     public void setItems(List<OrderProductItem> items) {
         this.items = items;
+    }
+
+    public Stock getStockMaterials() {
+        return stockMaterials;
+    }
+
+    public void setStockMaterials(Stock stockMaterials) {
+        this.stockMaterials = stockMaterials;
+    }
+
+    public Stock getStockProduct() {
+        return stockProduct;
+    }
+
+    public void setStockProduct(Stock stockProduct) {
+        this.stockProduct = stockProduct;
     }
 
     public Owner getOwner() {
@@ -118,6 +150,14 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
 
     public void setOrderNum(String orderNum) {
         this.orderNum = orderNum;
+    }
+
+    public StatusEntity getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEntity status) {
+        this.status = status;
     }
 
     @Override
