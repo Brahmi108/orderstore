@@ -44,7 +44,7 @@
                         <buttonsPanel id="buttonsPanel"
                                       alwaysVisible="true">
                             <button id="createBtn"
-                                    action="stockRecords_Table.create"/>
+                                    action="stockRecords_Table.create" caption="mainMsg://ButtonCreate"/>
                             <button id="editBtn"
                                     action="stockRecords_Table.edit"/>
                             <button id="removeBtn"

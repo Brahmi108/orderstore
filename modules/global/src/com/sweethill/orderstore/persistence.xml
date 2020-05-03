@@ -18,5 +18,7 @@
         <class>com.sweethill.orderstore.entity.production.management.OrderProduct</class>
         <class>com.sweethill.orderstore.entity.production.management.OrderProductItem</class>
         <class>com.sweethill.orderstore.entity.production.management.OrderProductMaterial</class>
+        <class>com.sweethill.orderstore.entity.StatusEntity</class>
+        <class>com.sweethill.orderstore.entity.StatusEntityTypes</class>
     </persistence-unit>
 </persistence>

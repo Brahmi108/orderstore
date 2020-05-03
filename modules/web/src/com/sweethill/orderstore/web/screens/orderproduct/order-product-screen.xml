@@ -42,12 +42,13 @@
             <columns>
                 <column property="orderNum" id="orderNum"/>
                 <column property="orderDate" id="orderDate"/>
+                <column property="status" id="status"/>
                 <column property="orderNote" id="orderNote"/>
                 <column property="readyDate" id="readyDate"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="orderProductsTable.create"/>
+                <button id="createBtn" action="orderProductsTable.create" caption="mainMsg://ButtonCreate"/>
                 <button id="editBtn" action="orderProductsTable.edit"/>
                 <button id="removeBtn" action="orderProductsTable.remove"/>
             </buttonsPanel>

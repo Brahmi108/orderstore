@@ -233,13 +233,11 @@ create table ORDERSTORE_ORDER_PRODUCT_ITEM (
     CREATED_BY varchar(50),
     VERSION integer not null,
     --
-    STOCK_PRODUCT_ID uuid not null,
     NOTE varchar(1000),
     PRODUCT_ID uuid not null,
     QUANTITY double precision not null,
     UNIT_ID uuid not null,
     SPECIFICATION_ID uuid,
-    STOCK_MATERIALS_ID uuid,
     ORDER_PRODUCT_ID uuid,
     --
     primary key (ID)
@@ -259,7 +257,41 @@ create table ORDERSTORE_ORDER_PRODUCT (
     ORDER_NOTE varchar(2000),
     READY_DATE date,
     OWNER_ID uuid not null,
+    STOCK_PRODUCT_ID uuid not null,
+    STOCK_MATERIALS_ID uuid,
+    STATUS_ID uuid not null,
     --
     primary key (ID)
 )^
 -- end ORDERSTORE_ORDER_PRODUCT
+-- begin ORDERSTORE_STATUS_ENTITY_TYPES
+create table ORDERSTORE_STATUS_ENTITY_TYPES (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NAME varchar(100) not null,
+    ENTITY_TYPE varchar(100) not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_STATUS_ENTITY_TYPES
+-- begin ORDERSTORE_STATUS_ENTITY
+create table ORDERSTORE_STATUS_ENTITY (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    OWNER_ID uuid not null,
+    NAME varchar(100) not null,
+    ENTITY_TYPE_ID uuid not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_STATUS_ENTITY

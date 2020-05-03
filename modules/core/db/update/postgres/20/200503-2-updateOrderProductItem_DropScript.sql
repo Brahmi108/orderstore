@@ -1,0 +1,2 @@
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM drop column STOCK_MATERIALS_ID__U66195 cascade ;
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM drop column STOCK_PRODUCT_ID__U76039 cascade ;

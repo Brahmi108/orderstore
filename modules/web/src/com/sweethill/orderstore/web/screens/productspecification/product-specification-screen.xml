@@ -50,7 +50,7 @@
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="productSpecificationsTable.create"/>
+                <button id="createBtn" action="productSpecificationsTable.create" caption="mainMsg://ButtonCreate"/>
                 <button id="editBtn" action="productSpecificationsTable.edit"/>
                 <button id="removeBtn" action="productSpecificationsTable.remove"/>
             </buttonsPanel>

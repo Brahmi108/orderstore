@@ -1,18 +1,29 @@
 package com.sweethill.orderstore.web.screens.orderproduct;
 
+import com.haulmont.bali.util.ParamsMap;
+import com.haulmont.cuba.core.app.UniqueNumbersService;
 import com.haulmont.cuba.core.global.Metadata;
+import com.haulmont.cuba.core.global.PersistenceHelper;
 import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
+import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
+import com.sweethill.orderstore.entity.Goods;
+import com.sweethill.orderstore.entity.StatusEntity;
 import com.sweethill.orderstore.entity.Stock;
-import com.sweethill.orderstore.entity.production.management.OrderProduct;
-import com.sweethill.orderstore.entity.production.management.OrderProductItem;
-import com.sweethill.orderstore.entity.production.management.OrderProductMaterial;
+import com.sweethill.orderstore.entity.production.management.*;
 import com.sweethill.orderstore.service.OrderStoreService;
+import com.sweethill.orderstore.web.screens.statusentity.StatusEntityBrowse;
 
 import javax.inject.Inject;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @UiController("orderstore_OrderProduct.edit")
 @UiDescriptor("order-product-edit.xml")
@@ -36,10 +47,18 @@ public class OrderProductEdit extends StandardEditor<OrderProduct> {
     private DataGrid<OrderProductMaterial> materialsTable;
     @Inject
     private CollectionPropertyContainer<OrderProductMaterial> materialsDc;
+    @Inject
+    private UniqueNumbersService uniqueNumbersService;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<OrderProduct> event) {
-        event.getEntity().setOwner(orderStoreService.getCurrentUserOwner());
+        Stock stock = orderStoreService.getDefaultStock();
+        OrderProduct orderProduct = event.getEntity();
+        orderProduct.setOwner(orderStoreService.getCurrentUserOwner());
+        orderProduct.setOrderDate(new Date());
+        orderProduct.setOrderNum(Long.toString(uniqueNumbersService.getNextNumber(("OrderNumber"))));
+        orderProduct.setStockMaterials(stock);
+        orderProduct.setStockProduct(stock);
     }
 
     @Subscribe("itemsTable.create")
@@ -50,11 +69,8 @@ public class OrderProductEdit extends StandardEditor<OrderProduct> {
                     .show();
             return;
         }
-        Stock stock = orderStoreService.getDefaultStock();
         OrderProductItem orderProductItem = metadata.create(OrderProductItem.class);
         OrderProductItem merged = getScreenData().getDataContext().merge(orderProductItem);
-        merged.setStockMaterials(stock);
-        merged.setStockProduct(stock);
         itemsDc.getMutableItems().add(merged);
         execAction = "create";
         itemsTable.edit(merged);
@@ -136,5 +152,83 @@ public class OrderProductEdit extends StandardEditor<OrderProduct> {
             getScreenData().getDataContext().remove(orderProductMaterial);
         }
         execAction = null;
+    }
+
+    @Subscribe("itemsTable")
+    public void onItemsTableEditorOpen(DataGrid.EditorOpenEvent event) {
+        Map fields = event.getFields();
+        PickerField fieldProduct = (PickerField) fields.get("product");
+        PickerField fieldUnit = (PickerField) fields.get("unit");
+        PickerField fieldSpecification = (PickerField) fields.get("specification");
+
+        fieldProduct.addValueChangeListener(e -> {
+            Goods good = (Goods) fieldProduct.getValue();
+            if (good != null) {
+                fieldUnit.setValue(good.getUnit());
+                PickerField.LookupAction action = (PickerField.LookupAction) fieldSpecification.getAction("lookup");
+                if (action != null)
+                    action.setLookupScreenParams(ParamsMap.of("product", good));
+            }
+        });
+    }
+
+    @Subscribe("materialsTable")
+    public void onMaterialsTableEditorOpen(DataGrid.EditorOpenEvent event) {
+        Map fields = event.getFields();
+        PickerField fieldGoog = (PickerField) fields.get("good");
+        PickerField fieldUnit = (PickerField) fields.get("unit");
+
+        fieldGoog.addValueChangeListener(e -> {
+            Goods good = (Goods) fieldGoog.getValue();
+            if (good != null) {
+                fieldUnit.setValue(good.getUnit());
+            }
+        });
+    }
+
+    @Subscribe("materialsTable.fill")
+    public void onMaterialsTableFill(Action.ActionPerformedEvent event) {
+        List<OrderProductItem> items = itemsDc.getMutableItems();
+        OrderProduct orderProduct = getEditedEntity();
+        if (items.size() > 0) {
+            materialsDc.getMutableItems().clear();
+            for (OrderProductItem orderProductItem : items) {
+                ProductSpecification specification = orderProductItem.getSpecification();
+                if (specification != null) {
+                    List<RowMaterial> materials = specification.getMaterials();
+                    if (materials.size() > 0) {
+                        for (RowMaterial itemMaterial : materials) {
+                            OrderProductMaterial material = metadata.create(OrderProductMaterial.class);
+                            material.setGood(itemMaterial.getGood());
+                            material.setQuantity(itemMaterial.getQuantity());
+                            material.setUnit(itemMaterial.getUnit());
+                            material.setNote(itemMaterial.getNote());
+                            material.setOrderProduct(orderProduct);
+                            OrderProductMaterial merged = getScreenData().getDataContext().merge(material);
+                            materialsDc.getMutableItems().add(merged);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Subscribe
+    public void onBeforeShow(BeforeShowEvent event) {
+        OrderProduct orderProduct = getEditedEntity();
+        if (!PersistenceHelper.isNew(orderProduct)) {
+            String caption = messageBundle.getMessage("editInstanceCaption");
+            Date orderDate = orderProduct.getOrderDate();
+            DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+            caption = caption
+                    .replace("%n", orderProduct.getOrderNum())
+                    .replace("%d", dateFormat.format(orderDate));
+            getWindow().setCaption(caption);
+        }
+    }
+
+    @Install(to = "statusField.lookup", subject = "screenOptionsSupplier")
+    private ScreenOptions statusFieldLookupScreenOptionsSupplier() {
+        return new MapScreenOptions(ParamsMap.of("entityType", "OrderProduct"));
     }
 }

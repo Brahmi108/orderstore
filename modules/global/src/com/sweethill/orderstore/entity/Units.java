@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @PublishEntityChangedEvents
-@NamePattern("%s|name")
+@NamePattern("%s|shortName")
 @Table(name = "ORDERSTORE_UNITS")
 @Entity(name = "orderstore_Units")
 public class Units extends BaseUuidEntity implements Creatable, Updatable {

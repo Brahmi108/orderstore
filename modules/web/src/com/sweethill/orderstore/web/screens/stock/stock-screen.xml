@@ -41,7 +41,7 @@
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn"
-                        action="stocksDataGrid.create"/>
+                        action="stocksDataGrid.create" caption="mainMsg://ButtonCreate"/>
                 <button id="editBtn"
                         action="stocksDataGrid.edit"/>
                 <button id="removeBtn"

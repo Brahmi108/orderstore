@@ -1,0 +1,7 @@
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM rename column stock_product_id to stock_product_id__u76039 ;
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM alter column stock_product_id__u76039 drop not null ;
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM drop constraint FK_ORDERSTORE_ORDER_PRODUCT_ITEM_ON_STOCK_PRODUCT ;
+drop index IDX_ORDERSTORE_ORDER_PRODUCT_ITEM_ON_STOCK_PRODUCT ;
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM rename column stock_materials_id to stock_materials_id__u66195 ;
+alter table ORDERSTORE_ORDER_PRODUCT_ITEM drop constraint FK_ORDERSTORE_ORDER_PRODUCT_ITEM_ON_STOCK_MATERIALS ;
+drop index IDX_ORDERSTORE_ORDER_PRODUCT_ITEM_ON_STOCK_MATERIALS ;

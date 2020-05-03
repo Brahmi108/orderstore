@@ -40,7 +40,7 @@
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn"
-                        action="unitsDataGrid.create"/>
+                        action="unitsDataGrid.create" caption="mainMsg://ButtonCreate"/>
                 <button id="editBtn"
                         action="unitsDataGrid.edit"/>
                 <button id="removeBtn"

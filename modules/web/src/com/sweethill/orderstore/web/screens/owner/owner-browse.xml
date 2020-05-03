@@ -44,7 +44,7 @@
                     <rowsCount/>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
-                        <button id="createBtn" action="table.create"/>
+                        <button id="createBtn" action="table.create" caption="mainMsg://ButtonCreate"/>
                         <button id="editBtn" action="table.edit"/>
                         <button id="removeBtn" action="table.remove"/>
                     </buttonsPanel>

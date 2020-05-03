@@ -48,7 +48,7 @@
                         <buttonsPanel id="buttonsPanel"
                                       alwaysVisible="true">
                             <button id="createBtn"
-                                    action="name_optionsTable.create"/>
+                                    action="name_optionsTable.create" caption="mainMsg://ButtonCreate"/>
                             <button id="editBtn"
                                     action="name_optionsTable.edit"/>
                             <button id="removeBtn"
@@ -76,7 +76,7 @@
                             <buttonsPanel id="buttonsPanelCosts"
                                           alwaysVisible="true">
                                 <button id="createCostBtn"
-                                        action="costsTable.create"/>
+                                        action="costsTable.create" caption="mainMsg://ButtonCreate"/>
                                 <button id="editCostBtn"
                                         action="costsTable.edit"/>
                                 <button id="removeCostBtn"
