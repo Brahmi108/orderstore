@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="addressTypesesTable"
+        messagesPack="com.sweethill.orderstore.web.screens.addresstypes">
+    <data readOnly="true">
+        <collection id="addressTypesesDc"
+                    class="com.sweethill.orderstore.entity.customer.AddressTypes"
+                    view="_local">
+            <loader id="addressTypesesDl">
+                <query>
+                    <![CDATA[select e from orderstore_AddressTypes e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="addressTypesesTable"
+            spacing="true">
+        <groupTable id="addressTypesesTable"
+                    width="100%"
+                    dataContainer="addressTypesesDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="code"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
