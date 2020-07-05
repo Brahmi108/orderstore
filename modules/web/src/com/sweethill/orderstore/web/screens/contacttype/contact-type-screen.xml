@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="ContactTypeDataGrid"
+        messagesPack="com.sweethill.orderstore.web.screens.contacttype">
+    <data>
+        <collection id="ContactTypeDc"
+                    class="com.sweethill.orderstore.entity.customer.ContactType"
+                    view="ContactType-view">
+            <loader id="ContactTypeDl">
+                <query>
+                    <![CDATA[select e from orderstore_ContactType e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout expand="ContactTypeDataGrid"
+            spacing="true">
+        <dataGrid id="ContactTypeDataGrid"
+                  editorEnabled="true"
+                  dataContainer="ContactTypeDc"
+                  width="100%">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="code"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="ContactTypeDataGrid.create" caption="mainMsg://ButtonCreate"/>
+                <button id="editBtn"
+                        action="ContactTypeDataGrid.edit"/>
+                <button id="removeBtn"
+                        action="ContactTypeDataGrid.remove"/>
+            </buttonsPanel>
+        </dataGrid>
+    </layout>
+</window>

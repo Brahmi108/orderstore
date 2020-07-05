@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.sweethill.orderstore.web.screens.customer">
+    <data>
+        <instance id="customerDc"
+                  class="com.sweethill.orderstore.entity.customer.Customer"
+                  view="Customer-view">
+            <loader/>
+            <collection id="addressesDC" property="addresses"/>
+            <collection id="contactsDC" property="contacts"/>
+        </instance>
+    </data>
+    <layout expand="editActions" spacing="true" minWidth="500px" width="100%">
+        <form id="form" dataContainer="customerDc" width="800px">
+            <column width="100%">
+                <textField id="nameField" property="name"/>
+                <groupBox id="addresses_Box" width="100%" stylename="borderless" showAsPanel="true" expand="tabSheet">
+                    <tabSheet id="tabSheet" width="100%" stylename="framed compact-tabbar">
+                        <tab caption="msg://addresses_tabCaption" margin="true" spacing="true" id="tab_Good">
+                            <dataGrid id="addresses_Table"
+                                      editorEnabled="true"
+                                      dataContainer="addressesDC"
+                                      width="100%" height="350px">
+                                <actions>
+                                    <action id="create" type="create"/>
+                                    <action id="edit" type="edit"/>
+                                    <action id="remove" type="remove"/>
+                                </actions>
+                                <columns>
+                                    <column property="address" width="400"/>
+                                    <column property="addressType" width="300px"/>
+                                </columns>
+                                <rowsCount/>
+                                <buttonsPanel id="buttonsPanel"
+                                              alwaysVisible="true">
+                                    <button id="createBtn"
+                                            action="addresses_Table.create" caption="mainMsg://ButtonCreate"/>
+                                    <button id="editBtn"
+                                            action="addresses_Table.edit"/>
+                                    <button id="removeBtn"
+                                            action="addresses_Table.remove"/>
+                                </buttonsPanel>
+                            </dataGrid>
+                        </tab>
+                        <tab caption="msg://contacts_tabCaption" margin="true,false,false,false" spacing="true" id="tab_GoodCosts">
+                            <dataGrid id="contacts_Table"
+                                      editorEnabled="true"
+                                      dataContainer="contactsDC"
+                                      width="100%" height="350px">
+                                <actions>
+                                    <action id="create" type="create"/>
+                                    <action id="edit" type="edit"/>
+                                    <action id="remove" type="remove"/>
+                                </actions>
+                                <columns>
+                                    <column property="contact" width="400px"/>
+                                    <column property="contactType" width="300px"/>
+                                </columns>
+                                <rowsCount/>
+                                <buttonsPanel id="contacts_buttonsPanel"
+                                              alwaysVisible="true">
+                                    <button id="contacts_createBtn"
+                                            action="contacts_Table.create" caption="mainMsg://ButtonCreate"/>
+                                    <button id="contacts_editBtn"
+                                            action="contacts_Table.edit"/>
+                                    <button id="contacts_removeBtn"
+                                            action="contacts_Table.remove"/>
+                                </buttonsPanel>
+                            </dataGrid>
+                        </tab>
+                    </tabSheet>
+                </groupBox>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

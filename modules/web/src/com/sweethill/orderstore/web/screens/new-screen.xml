@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://caption"
+        messagesPack="com.sweethill.orderstore.web.screens">
+    <layout>
+        <form id="form" width="100%">
+            <htmlBox id="testcase"></htmlBox>
+            <hbox caption="test" height="600" width="1000" stylename="card" id ="hbox">
+                <jsComponent id="ckeditor"
+                             initFunctionName="com_sweethill_orderstore_web_toolkit_ui_ckeditor_CKEditorServerComponent"
+                             height="200px"
+                             width="400">
+                    <dependencies>
+                        <dependency path="vaadin://resources/ckeditor/ckeditor.js"/>
+                        <dependency path="vaadin://ckeditor/ckeditor-connector.js"/>
+                    </dependencies>
+                </jsComponent>
+            </hbox>
+        </form>
+    </layout>
+</window>

@@ -141,4 +141,14 @@
             <property name="entityType"/>
         </property>
     </view>
+    <view entity="orderstore_AddressTypes" name="AddressTypes-view" extends="_local"/>
+    <view entity="orderstore_ContactType" name="ContactType-view" extends="_local"/>
+    <view entity="orderstore_Customer" name="Customer-view"  extends="_local">
+        <property name="contacts" view="_local">
+            <property name="contactType" view="_local"/>
+        </property>
+        <property name="addresses" view="_local">
+            <property name="addressType" view="_local"/>
+        </property>
+    </view>
 </views>

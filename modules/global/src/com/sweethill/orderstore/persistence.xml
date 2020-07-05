@@ -20,5 +20,10 @@
         <class>com.sweethill.orderstore.entity.production.management.OrderProductMaterial</class>
         <class>com.sweethill.orderstore.entity.StatusEntity</class>
         <class>com.sweethill.orderstore.entity.StatusEntityTypes</class>
+        <class>com.sweethill.orderstore.entity.customer.AddressTypes</class>
+        <class>com.sweethill.orderstore.entity.customer.ContactType</class>
+        <class>com.sweethill.orderstore.entity.customer.Address</class>
+        <class>com.sweethill.orderstore.entity.customer.Contact</class>
+        <class>com.sweethill.orderstore.entity.customer.Customer</class>
     </persistence-unit>
 </persistence>

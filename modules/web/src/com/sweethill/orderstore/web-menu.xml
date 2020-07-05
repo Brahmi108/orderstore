@@ -5,6 +5,10 @@
         <item screen="orderstore_UnitsBrowse"/>
         <item screen="orderstore_GoodsgroupsScreen"/>
         <item screen="orderstore_CostTypeScreen"/>
+        <item screen="orderstore_NewScreen"/>
+    </menu>
+    <menu id="stock_Customer" insertBefore="reports">
+        <item screen="orderstore_Customer.screen"/>
     </menu>
     <menu id="stock_main" insertBefore="reports">
         <item screen="orderstore_StockScreen"/>
@@ -14,8 +18,10 @@
         <item screen="orderstore_ProductSpecification.screen" id="ProductSpecificationScreenm"/>
         <item screen="orderstore_OrderProduct.screen"/>
     </menu>
-    <menu id="application-orderstore" insertBefore="administration">
+    <menu id="SysDictionaries" insertBefore="sec$User.browse">
+        <item screen="orderstore_Owner.browse"/>
+        <item screen="orderstore_StatusEntity.screen"/>
+        <item screen="orderstore_AddressTypes.screen"/>
+        <item screen="orderstore_ContactType.screen"/>
     </menu>
-    <item screen="orderstore_Owner.browse" insertBefore="sec$User.browse"/>
-    <item screen="orderstore_StatusEntity.screen" insertBefore="orderstore_Owner.browse"/>
 </menu-config>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="AddressTypesDataGrid"
+        messagesPack="com.sweethill.orderstore.web.screens.addresstypes">
+    <data>
+        <collection id="AddressTypesDc"
+                    class="com.sweethill.orderstore.entity.customer.AddressTypes"
+                    view="AddressTypes-view">
+            <loader id="AddressTypesDl">
+                <query>
+                    <![CDATA[select e from orderstore_AddressTypes e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <layout expand="AddressTypesDataGrid"
+            spacing="true">
+        <dataGrid id="AddressTypesDataGrid"
+                  editorEnabled="true"
+                  dataContainer="AddressTypesDc"
+                  width="100%">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column property="name"/>
+                <column property="code"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="AddressTypesDataGrid.create" caption="mainMsg://ButtonCreate"/>
+                <button id="editBtn"
+                        action="AddressTypesDataGrid.edit"/>
+                <button id="removeBtn"
+                        action="AddressTypesDataGrid.remove"/>
+            </buttonsPanel>
+        </dataGrid>
+    </layout>
+</window>
