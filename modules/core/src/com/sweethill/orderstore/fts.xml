@@ -55,5 +55,23 @@
         <entity class="com.sweethill.orderstore.entity.StatusEntityTypes">
             <include re=".*"/>
         </entity>
+        <entity class="com.sweethill.orderstore.entity.customer.AddressTypes">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.customer.ContactType">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.customer.Adres">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.customer.Address">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.customer.Contact">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.customer.Customer">
+            <include re=".*"/>
+        </entity>
     </entities>
 </fts-config>

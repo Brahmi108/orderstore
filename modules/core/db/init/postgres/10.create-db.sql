@@ -295,3 +295,80 @@ create table ORDERSTORE_STATUS_ENTITY (
     primary key (ID)
 )^
 -- end ORDERSTORE_STATUS_ENTITY
+-- begin ORDERSTORE_ADDRESS_TYPES
+create table ORDERSTORE_ADDRESS_TYPES (
+    ID uuid,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NAME varchar(200) not null,
+    CODE varchar(50) not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ADDRESS_TYPES
+-- begin ORDERSTORE_CONTACT_TYPE
+create table ORDERSTORE_CONTACT_TYPE (
+    ID uuid,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NAME varchar(200) not null,
+    CODE varchar(50) not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_CONTACT_TYPE
+-- begin ORDERSTORE_CONTACT
+create table ORDERSTORE_CONTACT (
+    ID uuid,
+    VERSION integer not null,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    --
+    CONTACT varchar(200) not null,
+    TYPE uuid not null,
+    CUSTOMER_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_CONTACT
+-- begin ORDERSTORE_ADDRESS
+create table ORDERSTORE_ADDRESS (
+    ID uuid,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    --
+    ADDRESS varchar(2000) not null,
+    ADDRESS_TYPE uuid not null,
+    CUSTOMER_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ADDRESS
+-- begin ORDERSTORE_CUSTOMER
+create table ORDERSTORE_CUSTOMER (
+    ID uuid,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NAME varchar(500) not null,
+    OWNER_ID uuid not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_CUSTOMER

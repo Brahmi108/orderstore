@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '7.2.4'
+    ext.cubaVersion = '7.2.6'
     repositories {
         maven {
             url 'https://dl.bintray.com/cuba-platform/main'
@@ -30,6 +30,9 @@ cuba {
         group = 'com.sweethill.orderstore'
         version = '0.1'
         isSnapshot = true
+    }
+    tomcat {
+        port = '8081'
     }
 }
 

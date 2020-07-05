@@ -15,10 +15,8 @@
             </loader>
         </collection>
     </data>
-    <dialogMode height="600"
-                width="800"/>
-    <layout expand="addressTypesesTable"
-            spacing="true">
+    <dialogMode forceDialog="true" width="AUTO" height="AUTO"/>
+    <layout expand="addressTypesesTable" width="100%" maxWidth="600px" spacing="true" height="400px">
         <groupTable id="addressTypesesTable"
                     width="100%"
                     dataContainer="addressTypesesDc">
@@ -26,7 +24,6 @@
             </actions>
             <columns>
                 <column id="name"/>
-                <column id="code"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

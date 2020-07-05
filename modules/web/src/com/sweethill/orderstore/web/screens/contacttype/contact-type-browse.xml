@@ -16,30 +16,26 @@
         </collection>
     </data>
     <dialogMode height="600"
-                width="800"/>
+                width="800" forceDialog="true"/>
     <layout expand="contactTypesTable"
             spacing="true">
-        
-<groupTable id="contactTypesTable"
-        width="100%"
-        dataContainer="contactTypesDc">
-    <actions>
-    </actions>
-    <columns>
-        <column  id="name"/>
-    
-        <column  id="code"/>
-    
-    </columns>
-    <rowsCount/>
-    <buttonsPanel id="buttonsPanel"
-                  alwaysVisible="true">
-        
-    </buttonsPanel>
-</groupTable>
+        <groupTable id="contactTypesTable"
+                    width="100%"
+                    dataContainer="contactTypesDc">
+            <actions>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="code"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+            </buttonsPanel>
+        </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>
         </hbox>
-    </layout>                
+    </layout>
 </window>
