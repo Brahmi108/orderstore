@@ -10,11 +10,11 @@
                     view="stockMovement-view">
             <loader id="stockMovementsDl">
                 <query>
-                    <![CDATA[select e from orderstore_StockMovement e, orderstore_Stock s where s = e.stock]]>
+                    <![CDATA[select e from orderstore_StockMovement e]]>
                     <condition>
                         <and>
                             <c:jpql>
-                                <c:where>s.owner = :owner</c:where>
+                                <c:where>e.stock.owner = :owner</c:where>
                             </c:jpql>
                         </and>
                     </condition>

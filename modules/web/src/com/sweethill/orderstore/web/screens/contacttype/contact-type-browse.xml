@@ -26,7 +26,6 @@
             </actions>
             <columns>
                 <column id="name"/>
-                <column id="code"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
