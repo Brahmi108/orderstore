@@ -1,4 +1,4 @@
-package com.sweethill.orderstore.entity;
+package com.sweethill.orderstore.entity.stock;
 
 import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;

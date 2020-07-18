@@ -1,5 +1,6 @@
-package com.sweethill.orderstore.entity;
+package com.sweethill.orderstore.entity.stock;
 
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.BaseUuidEntity;
 import com.haulmont.cuba.core.entity.Creatable;
 import com.haulmont.cuba.core.entity.Updatable;
@@ -7,12 +8,13 @@ import com.haulmont.cuba.core.entity.Versioned;
 import com.haulmont.cuba.core.entity.annotation.OnDeleteInverse;
 import com.haulmont.cuba.core.entity.annotation.PublishEntityChangedEvents;
 import com.haulmont.cuba.core.global.DeletePolicy;
+import com.sweethill.orderstore.entity.Goods;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@PublishEntityChangedEvents
+@NamePattern("%s|stockMovement")
 @Table(name = "ORDERSTORE_STOCK_RECORD")
 @Entity(name = "orderstore_StockRecord")
 public class StockRecord extends BaseUuidEntity implements Versioned, Updatable, Creatable {

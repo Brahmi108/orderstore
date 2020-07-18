@@ -8,6 +8,7 @@
     </menu>
     <menu id="stock_Customer" insertBefore="reports">
         <item screen="orderstore_Customer.screen"/>
+        <item screen="orderstore_Order.screen"/>
     </menu>
     <menu id="stock_main" insertBefore="reports">
         <item screen="orderstore_StockScreen"/>

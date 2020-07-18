@@ -1,26 +1,23 @@
-package com.sweethill.orderstore.entity.production.management;
+package com.sweethill.orderstore.entity.ordering.order;
 
 import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.chile.core.annotations.NamePattern;
-import com.haulmont.cuba.core.entity.BaseUuidEntity;
-import com.haulmont.cuba.core.entity.Creatable;
-import com.haulmont.cuba.core.entity.Updatable;
-import com.haulmont.cuba.core.entity.Versioned;
+import com.haulmont.cuba.core.entity.*;
 import com.sweethill.orderstore.entity.Owner;
 import com.sweethill.orderstore.entity.StatusEntity;
-import com.sweethill.orderstore.entity.stock.Stock;
+import com.sweethill.orderstore.entity.customer.Customer;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
-@NamePattern("%s %s|orderNum,orderDate")
-@Table(name = "ORDERSTORE_ORDER_PRODUCT")
-@Entity(name = "orderstore_OrderProduct")
-public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable, Creatable {
-    private static final long serialVersionUID = -6767684362269254075L;
-
+@NamePattern("%s|orderNum,orderDate")
+@Table(name = "ORDERSTORE_ORDER")
+@Entity(name = "orderstore_Order")
+public class Order extends BaseUuidEntity implements Versioned, Updatable, Creatable {
+    private static final long serialVersionUID = -2554416021190515392L;
     @NotNull
     @Column(name = "NUM", nullable = false, length = 100)
     protected String orderNum;
@@ -33,36 +30,24 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
     @Column(name = "ORDER_NOTE", length = 2000)
     protected String orderNote;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "READY_DATE")
-    protected Date readyDate;
-
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "OWNER_ID")
     protected Owner owner;
 
-    @Composition
-    @OneToMany(mappedBy = "orderProduct")
-    protected List<OrderProductItem> items;
-
-    @Composition
-    @OneToMany(mappedBy = "orderProduct")
-    protected List<OrderProductMaterial> materials;
-
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "STOCK_PRODUCT_ID")
-    protected Stock stockProduct;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "STOCK_MATERIALS_ID")
-    protected Stock stockMaterials;
+    @JoinColumn(name = "CUSTOMER_ID")
+    protected Customer customer;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "STATUS_ID")
     protected StatusEntity status;
+
+    @Composition
+    @OneToMany(mappedBy = "order")
+    protected List<OrderItem> items;
 
     @Column(name = "UPDATE_TS")
     protected Date updateTs;
@@ -80,38 +65,6 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
     @Column(name = "VERSION", nullable = false)
     protected Integer version;
 
-    public List<OrderProductMaterial> getMaterials() {
-        return materials;
-    }
-
-    public void setMaterials(List<OrderProductMaterial> materials) {
-        this.materials = materials;
-    }
-
-    public List<OrderProductItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OrderProductItem> items) {
-        this.items = items;
-    }
-
-    public Stock getStockMaterials() {
-        return stockMaterials;
-    }
-
-    public void setStockMaterials(Stock stockMaterials) {
-        this.stockMaterials = stockMaterials;
-    }
-
-    public Stock getStockProduct() {
-        return stockProduct;
-    }
-
-    public void setStockProduct(Stock stockProduct) {
-        this.stockProduct = stockProduct;
-    }
-
     public Owner getOwner() {
         return owner;
     }
@@ -120,12 +73,12 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
         this.owner = owner;
     }
 
-    public Date getReadyDate() {
-        return readyDate;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setReadyDate(Date readyDate) {
-        this.readyDate = readyDate;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getOrderNote() {
@@ -208,5 +161,13 @@ public class OrderProduct extends BaseUuidEntity implements Versioned, Updatable
     @Override
     public void setUpdateTs(Date updateTs) {
         this.updateTs = updateTs;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }

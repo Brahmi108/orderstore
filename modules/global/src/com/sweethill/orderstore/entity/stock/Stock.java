@@ -1,10 +1,11 @@
-package com.sweethill.orderstore.entity;
+package com.sweethill.orderstore.entity.stock;
 
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.BaseUuidEntity;
 import com.haulmont.cuba.core.entity.Creatable;
 import com.haulmont.cuba.core.entity.Updatable;
 import com.haulmont.cuba.core.entity.Versioned;
+import com.sweethill.orderstore.entity.Owner;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

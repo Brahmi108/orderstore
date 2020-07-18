@@ -1,6 +1,8 @@
 update sec_user set dtype = 'orderstore_ExtUser';
 insert into orderstore_status_entity_types (ID, VERSION, CREATE_TS, CREATED_BY, NAME, entity_type)
 values('92c98203-398b-4556-8434-d44bd68748c9', 1, now(), 'admin', 'Заказы на производство', 'OrderProduct');
+insert into orderstore_status_entity_types (ID, VERSION, CREATE_TS, CREATED_BY, NAME, entity_type)
+values('ab0392fe-f523-4a50-bbf3-30d0ab6f3741', 1, now(), 'admin', 'Заказы', 'Order');
 insert into orderstore_address_types (ID, VERSION, CREATE_TS, CREATED_BY, NAME, CODE)
 values('d0af1c48-aeef-4685-a84f-1194a9218b92', 1, now(), 'admin', 'Фактический', 'FACT');
 insert into orderstore_address_types (ID, VERSION, CREATE_TS, CREATED_BY, NAME, CODE)

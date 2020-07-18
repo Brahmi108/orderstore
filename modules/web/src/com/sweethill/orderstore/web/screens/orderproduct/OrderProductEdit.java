@@ -13,7 +13,7 @@ import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.Goods;
 import com.sweethill.orderstore.entity.StatusEntity;
-import com.sweethill.orderstore.entity.Stock;
+import com.sweethill.orderstore.entity.stock.Stock;
 import com.sweethill.orderstore.entity.production.management.*;
 import com.sweethill.orderstore.service.OrderStoreService;
 import com.sweethill.orderstore.web.screens.statusentity.StatusEntityBrowse;
@@ -56,7 +56,7 @@ public class OrderProductEdit extends StandardEditor<OrderProduct> {
         OrderProduct orderProduct = event.getEntity();
         orderProduct.setOwner(orderStoreService.getCurrentUserOwner());
         orderProduct.setOrderDate(new Date());
-        orderProduct.setOrderNum(Long.toString(uniqueNumbersService.getNextNumber(("OrderNumber"))));
+        orderProduct.setOrderNum(Long.toString(uniqueNumbersService.getNextNumber(("OrderProductNumber"))));
         orderProduct.setStockMaterials(stock);
         orderProduct.setStockProduct(stock);
     }

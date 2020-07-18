@@ -3,7 +3,7 @@ package com.sweethill.orderstore.web.screens.stock;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.sweethill.orderstore.entity.Owner;
-import com.sweethill.orderstore.entity.Stock;
+import com.sweethill.orderstore.entity.stock.Stock;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;

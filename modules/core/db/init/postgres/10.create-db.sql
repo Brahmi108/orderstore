@@ -372,3 +372,40 @@ create table ORDERSTORE_CUSTOMER (
     primary key (ID)
 )^
 -- end ORDERSTORE_CUSTOMER
+-- begin ORDERSTORE_ORDER
+create table ORDERSTORE_ORDER (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NUM varchar(100) not null,
+    ORDER_DATE date not null,
+    ORDER_NOTE varchar(2000),
+    OWNER_ID uuid not null,
+    CUSTOMER_ID uuid not null,
+    STATUS_ID uuid not null,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ORDER
+-- begin ORDERSTORE_ORDER_ITEM
+create table ORDERSTORE_ORDER_ITEM (
+    ID uuid,
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    VERSION integer not null,
+    --
+    NOTE varchar(1000),
+    PRODUCT_ID uuid not null,
+    QUANTITY double precision not null,
+    UNIT_ID uuid not null,
+    ORDER_ID uuid,
+    --
+    primary key (ID)
+)^
+-- end ORDERSTORE_ORDER_ITEM

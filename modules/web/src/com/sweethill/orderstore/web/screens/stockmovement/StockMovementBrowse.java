@@ -7,8 +7,8 @@ import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.haulmont.cuba.gui.screen.LookupComponent;
 import com.sweethill.orderstore.entity.Owner;
-import com.sweethill.orderstore.entity.StockMovement;
-import com.sweethill.orderstore.entity.StockRecord;
+import com.sweethill.orderstore.entity.stock.StockMovement;
+import com.sweethill.orderstore.entity.stock.StockRecord;
 import com.sweethill.orderstore.service.OrderStoreService;
 import org.springframework.lang.NonNullApi;
 

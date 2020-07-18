@@ -7,8 +7,8 @@ import com.haulmont.cuba.gui.components.Action;
 import com.haulmont.cuba.gui.components.DataGrid;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.screen.*;
-import com.sweethill.orderstore.entity.StockMovement;
-import com.sweethill.orderstore.entity.StockRecord;
+import com.sweethill.orderstore.entity.stock.StockMovement;
+import com.sweethill.orderstore.entity.stock.StockRecord;
 import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;

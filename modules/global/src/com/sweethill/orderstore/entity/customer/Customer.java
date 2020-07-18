@@ -8,6 +8,8 @@ import com.haulmont.cuba.core.entity.annotation.LookupType;
 import com.haulmont.cuba.core.entity.annotation.OnDeleteInverse;
 import com.haulmont.cuba.core.global.DeletePolicy;
 import com.sweethill.orderstore.entity.Owner;
+import com.sweethill.orderstore.entity.ordering.order.Order;
+import com.sweethill.orderstore.entity.ordering.order.OrderItem;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -45,6 +47,10 @@ public class Customer extends BaseUuidEntity implements Versioned, Updatable, Cr
     @Composition
     @OneToMany(mappedBy = "customer")
     protected List<Address> addresses;
+
+    @Composition
+    @OneToMany(mappedBy = "customer")
+    protected List<Order> orders;
 
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @Composition
@@ -132,5 +138,13 @@ public class Customer extends BaseUuidEntity implements Versioned, Updatable, Cr
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

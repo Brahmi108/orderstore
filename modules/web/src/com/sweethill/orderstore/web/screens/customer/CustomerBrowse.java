@@ -8,11 +8,11 @@ import com.sweethill.orderstore.service.OrderStoreService;
 
 import javax.inject.Inject;
 
-@UiController("orderstore_Customer.screen")
-@UiDescriptor("customer-screen.xml")
+@UiController("orderstore_Customer.browse")
+@UiDescriptor("customer-browse.xml")
 @LookupComponent("customersTable")
 @LoadDataBeforeShow
-public class CustomerScreen extends StandardLookup<Customer> {
+public class CustomerBrowse extends StandardLookup<Customer> {
     @Inject
     private OrderStoreService orderStoreService;
     @Inject
