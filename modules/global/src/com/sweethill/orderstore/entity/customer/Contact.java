@@ -30,7 +30,7 @@ public class Contact extends BaseUuidEntity implements Versioned, Updatable, Cre
     }
 
     @NotNull
-    @Lookup(type = LookupType.SCREEN, actions = {"lookup", "open", "clear"})
+    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open", "clear"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "TYPE")
     protected ContactType contactType;
