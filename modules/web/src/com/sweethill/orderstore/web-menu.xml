@@ -5,7 +5,6 @@
         <item screen="orderstore_UnitsBrowse"/>
         <item screen="orderstore_GoodsgroupsScreen"/>
         <item screen="orderstore_CostTypeScreen"/>
-        <item screen="orderstore_NewScreen"/>
     </menu>
     <menu id="stock_Customer" insertBefore="reports">
         <item screen="orderstore_Customer.screen"/>
@@ -15,7 +14,7 @@
         <item screen="orderstore_StockMovement.browse"/>
     </menu>
     <menu id="Production" insertBefore="reports" icon="icons/wf-design-scripts.png">
-        <item screen="orderstore_ProductSpecification.screen" id="ProductSpecificationScreenm"/>
+        <item screen="orderstore_ProductSpecification.screen" id="ProductSpecificationScreen"/>
         <item screen="orderstore_OrderProduct.screen"/>
     </menu>
     <menu id="SysDictionaries" insertBefore="sec$User.browse">

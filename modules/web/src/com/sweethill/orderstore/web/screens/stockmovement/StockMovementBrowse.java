@@ -10,6 +10,7 @@ import com.sweethill.orderstore.entity.Owner;
 import com.sweethill.orderstore.entity.StockMovement;
 import com.sweethill.orderstore.entity.StockRecord;
 import com.sweethill.orderstore.service.OrderStoreService;
+import org.springframework.lang.NonNullApi;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -36,7 +37,11 @@ public class StockMovementBrowse extends StandardLookup<StockMovement> {
         stockMovementsDl.setParameter("owner", owner);
         stockMovementsTable.setItemClickAction(new BaseAction("itemClickAction")
                 .withHandler(actionPerformedEvent ->
-                        stockMovementsTable.setDetailsVisible(stockMovementsTable.getSingleSelected(), true)));
+                {
+                    StockMovement stockMovement = stockMovementsTable.getSingleSelected();
+                    if (stockMovement!= null)
+                        stockMovementsTable.setDetailsVisible(stockMovement, true);
+                }));
 
         DataGrid.Column column = stockMovementsTable.addGeneratedColumn("totalCost",
             new DataGrid.ColumnGenerator<StockMovement, String>() {
@@ -46,7 +51,6 @@ public class StockMovementBrowse extends StandardLookup<StockMovement> {
                 Double v_nResult = orderStoreService.getStockMovementCost(stockMovement);
                 return (v_nResult == null) ? "" : v_nResult.toString();
             }
-
            @Override
             public Class<String> getType() {
                 return String.class;
