@@ -39,7 +39,7 @@ public class Address extends BaseUuidEntity implements Versioned, Creatable, Upd
     protected String address;
 
     @NotNull
-    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "open", "clear"})
+    @Lookup(type = LookupType.SCREEN, actions = {"lookup", "open", "clear"})
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ADDRESS_TYPE")
     protected AddressTypes addressType;
