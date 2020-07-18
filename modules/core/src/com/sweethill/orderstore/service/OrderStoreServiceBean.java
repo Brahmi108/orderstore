@@ -8,6 +8,9 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.sweethill.orderstore.entity.*;
+import com.sweethill.orderstore.entity.stock.Stock;
+import com.sweethill.orderstore.entity.stock.StockMovement;
+import com.sweethill.orderstore.entity.stock.StockRecord;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

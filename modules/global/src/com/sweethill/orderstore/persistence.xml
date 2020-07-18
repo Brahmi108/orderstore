@@ -10,9 +10,9 @@
         <class>com.sweethill.orderstore.entity.ExtUser</class>
         <class>com.sweethill.orderstore.entity.CostType</class>
         <class>com.sweethill.orderstore.entity.Cost</class>
-        <class>com.sweethill.orderstore.entity.Stock</class>
-        <class>com.sweethill.orderstore.entity.StockMovement</class>
-        <class>com.sweethill.orderstore.entity.StockRecord</class>
+        <class>com.sweethill.orderstore.entity.stock.Stock</class>
+        <class>com.sweethill.orderstore.entity.stock.StockMovement</class>
+        <class>com.sweethill.orderstore.entity.stock.StockRecord</class>
         <class>com.sweethill.orderstore.entity.production.management.ProductSpecification</class>
         <class>com.sweethill.orderstore.entity.production.management.RowMaterial</class>
         <class>com.sweethill.orderstore.entity.production.management.OrderProduct</class>
@@ -25,5 +25,7 @@
         <class>com.sweethill.orderstore.entity.customer.Address</class>
         <class>com.sweethill.orderstore.entity.customer.Contact</class>
         <class>com.sweethill.orderstore.entity.customer.Customer</class>
+        <class>com.sweethill.orderstore.entity.ordering.order.Order</class>
+        <class>com.sweethill.orderstore.entity.ordering.order.OrderItem</class>
     </persistence-unit>
 </persistence>

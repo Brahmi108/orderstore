@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
+        caption="msg://browseCaption"
+        focusComponent="ordersTable"
+        messagesPack="com.sweethill.orderstore.web.screens.order">
+    <data readOnly="true">
+        <collection id="ordersDc"
+                    class="com.sweethill.orderstore.entity.ordering.order.Order"
+                    view="order-view">
+            <loader id="ordersDl">
+                <query>
+                    <![CDATA[select e from orderstore_Order e]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.owner = :owner</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="ordersTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="ordersTable"
+                dataLoader="ordersDl">
+            <properties include="(orderNum)|(orderDate)|(orderNote)"/>
+        </filter>
+        <groupTable id="ordersTable"
+                    width="100%"
+                    dataContainer="ordersDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="customer.name" caption="msg://CustomerName"/>
+                <column id="orderNum"/>
+                <column id="orderDate"/>
+                <column id="orderNote"/>
+            </columns>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="ordersTable.create" caption="mainMsg://ButtonCreate"/>
+                <button id="editBtn" action="ordersTable.edit"/>
+                <button id="removeBtn" action="ordersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

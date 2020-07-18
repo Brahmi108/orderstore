@@ -6,7 +6,7 @@
         messagesPack="com.sweethill.orderstore.web.screens.stockmovement">
     <data readOnly="true">
         <collection id="stockMovementsDc"
-                    class="com.sweethill.orderstore.entity.StockMovement"
+                    class="com.sweethill.orderstore.entity.stock.StockMovement"
                     view="stockMovement-view">
             <loader id="stockMovementsDl">
                 <query>

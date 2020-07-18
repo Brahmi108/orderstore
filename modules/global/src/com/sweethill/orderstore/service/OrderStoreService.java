@@ -1,6 +1,9 @@
 package com.sweethill.orderstore.service;
 
 import com.sweethill.orderstore.entity.*;
+import com.sweethill.orderstore.entity.stock.Stock;
+import com.sweethill.orderstore.entity.stock.StockMovement;
+import com.sweethill.orderstore.entity.stock.StockRecord;
 
 import java.util.Date;
 import java.util.List;

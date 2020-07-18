@@ -5,7 +5,7 @@
         messagesPack="com.sweethill.orderstore.web.screens.stock">
     <data>
         <collection id="stocksDc"
-                    class="com.sweethill.orderstore.entity.Stock"
+                    class="com.sweethill.orderstore.entity.stock.Stock"
                     view="_local">
             <loader id="stocksDl">
                 <query>

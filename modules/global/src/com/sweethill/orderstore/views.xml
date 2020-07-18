@@ -148,5 +148,17 @@
         <property name="addresses" view="_local">
             <property name="addressType" view="_local"/>
         </property>
+        <property name="orders" view="_local"/>
+    </view>
+    <view entity="orderstore_Order" name="order-view" extends="_local">
+        <property name="customer" view="_local"/>
+        <property name="owner" view="_minimal"/>
+        <property name="items" view="_minimal">
+            <property name="note"/>
+            <property name="quantity"/>
+            <property name="unit" view="_minimal"/>
+            <property name="product" view="_local"/>
+        </property>
+        <property name="status" view="_local"/>
     </view>
 </views>

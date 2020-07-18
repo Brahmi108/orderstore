@@ -25,13 +25,13 @@
         <entity class="com.sweethill.orderstore.entity.Cost">
             <include re=".*"/>
         </entity>
-        <entity class="com.sweethill.orderstore.entity.Stock">
+        <entity class="com.sweethill.orderstore.entity.stock.Stock">
             <include re=".*"/>
         </entity>
-        <entity class="com.sweethill.orderstore.entity.StockMovement">
+        <entity class="com.sweethill.orderstore.entity.stock.StockMovement">
             <include re=".*"/>
         </entity>
-        <entity class="com.sweethill.orderstore.entity.StockRecord">
+        <entity class="com.sweethill.orderstore.entity.stock.StockRecord">
             <include re=".*"/>
         </entity>
         <entity class="com.sweethill.orderstore.entity.production.management.ProductSpecification">
@@ -71,6 +71,12 @@
             <include re=".*"/>
         </entity>
         <entity class="com.sweethill.orderstore.entity.customer.Customer">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.ordering.order.Order">
+            <include re=".*"/>
+        </entity>
+        <entity class="com.sweethill.orderstore.entity.ordering.order.OrderItem">
             <include re=".*"/>
         </entity>
     </entities>

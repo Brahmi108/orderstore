@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://editorCaption"
+        focusComponent="form"
+        messagesPack="com.sweethill.orderstore.web.screens.order">
+    <data>
+        <instance id="orderDc"
+                  class="com.sweethill.orderstore.entity.ordering.order.Order"
+                  view="order-view">
+            <loader/>
+            <collection id="itemsDc" property="items"/>
+        </instance>
+    </data>
+    <layout expand="editActions" spacing="true" width="100%">
+        <form id="form" dataContainer="orderDc" width="100%">
+            <column width="100%">
+                <textField id="orderNumField" property="orderNum" width="250"/>
+                <dateField id="orderDateField" property="orderDate" width="250"/>
+                <textField id="orderNoteField" property="orderNote" width="100%"/>
+                <pickerField id="customerField" property="customer" width="500">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <pickerField id="statusField" property="status" width="300">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+                <groupBox id="itemsBox" stylename="borderless" showAsPanel="true" expand="itemsTable" width="100%" height="400px">
+                    <dataGrid id="itemsTable" dataContainer="itemsDc" width="100%" editorEnabled="true">
+                        <actions>
+                            <action id="create" type="create"/>
+                            <action id="edit" type="edit"/>
+                            <action id="remove" type="remove"/>
+                        </actions>
+                        <columns>
+                            <column id="product" property="product" caption="msg://ProductItemCaption"/>
+                            <column id="quantity" property="quantity"/>
+                            <column id="unit" property="unit"/>
+                            <column id="note" property="note"/>
+                        </columns>
+                        <buttonsPanel>
+                            <button action="itemsTable.create" caption="mainMsg://ButtonCreate"/>
+                            <button action="itemsTable.edit"/>
+                            <button action="itemsTable.remove"/>
+                        </buttonsPanel>
+                    </dataGrid>
+                </groupBox>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button action="windowCommitAndClose" caption="mainMsg://ButtonOK"/>
+            <button action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
